@@ -25,9 +25,9 @@
     "/users/": {
       "get": {
         "tags": [
-          "Users"
+          "Users - 使用者"
         ],
-        "description": "取得全部 user",
+        "description": "取得全部使用者 API",
         "parameters": [],
         "responses": {
           "200": {
@@ -242,7 +242,36 @@
         ],
         "description": "刪除全部貼文 API",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "貼文資訊",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "message": {
+                  "type": "object",
+                  "properties": {
+                    "acknowledged": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "deletedCount": {
+                      "type": "number",
+                      "example": 10
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
       }
     },
     "/posts/{id}": {
@@ -259,7 +288,70 @@
             "type": "string"
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "貼文資訊",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "message": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "example": "627b143e88edb2f730f97feb"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "員工弟弟"
+                    },
+                    "content": {
+                      "type": "string",
+                      "example": "這家店草真的好帥"
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "type": {
+                      "type": "string",
+                      "example": "person"
+                    },
+                    "image": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "user": {
+                      "type": "string",
+                      "example": "6277b20ad980d4df45db6447"
+                    },
+                    "likes": {
+                      "type": "number",
+                      "example": 0
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2022-05-11T01:41:18.681Z"
+                    },
+                    "__v": {
+                      "type": "number",
+                      "example": 0
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
       },
       "patch": {
         "tags": [
@@ -274,7 +366,70 @@
             "type": "string"
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "貼文資訊",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "message": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "example": "627b143e88edb2f730f97feb"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "員工弟弟"
+                    },
+                    "content": {
+                      "type": "string",
+                      "example": "這家店草真的好帥"
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "type": {
+                      "type": "string",
+                      "example": "person"
+                    },
+                    "image": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "user": {
+                      "type": "string",
+                      "example": "6277b20ad980d4df45db6447"
+                    },
+                    "likes": {
+                      "type": "number",
+                      "example": 0
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2022-05-11T01:41:18.681Z"
+                    },
+                    "__v": {
+                      "type": "number",
+                      "example": 0
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
       }
     }
   },
