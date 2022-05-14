@@ -1,10 +1,6 @@
 const mongoose = require('mongoose')
 const postSchema = new mongoose.Schema(
     {
-      name: {
-        type: String,
-        required: [true, "貼文姓名 name 未填寫"]
-      },
       content: {
         type: String,
         required: [true, '貼文內容 Content 未填寫']
