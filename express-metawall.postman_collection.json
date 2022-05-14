@@ -1,0 +1,147 @@
+{
+	"info": {
+		"_postman_id": "fb7b5ea4-ae01-4cea-8c36-f9da83aa2636",
+		"name": "express-metawall",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "取得篩選貼文",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://secure-plains-31314.herokuapp.com/posts?timeSort=desc",
+					"protocol": "https",
+					"host": [
+						"secure-plains-31314",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts"
+					],
+					"query": [
+						{
+							"key": "timeSort",
+							"value": "desc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "新增單筆貼文",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\": \"627f45afcb9c03c97897f7bd\",\r\n    \"type\": \"person\",\r\n    \"tags\": [\"正妹\",\"姐姐\"],\r\n    \"content\": \"這間店的小姐姐好漂亮\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://secure-plains-31314.herokuapp.com/posts",
+					"protocol": "https",
+					"host": [
+						"secure-plains-31314",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "刪除全部貼文",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://secure-plains-31314.herokuapp.com/posts",
+					"protocol": "https",
+					"host": [
+						"secure-plains-31314",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "刪除單筆貼文",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://secure-plains-31314.herokuapp.com/posts/627f46136b35920dcfdbba5b",
+					"protocol": "https",
+					"host": [
+						"secure-plains-31314",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts",
+						"627f46136b35920dcfdbba5b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "編輯單筆貼文",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\": \"627f45afcb9c03c97897f7bd\",\r\n    \"type\": \"person\",\r\n    \"tags\": [\"健身\",\"健美\"],\r\n    \"content\": \"這個人練得好壯\",\r\n    \"likes\": 144\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://secure-plains-31314.herokuapp.com/posts/627f46136b35920dcfdbba5b",
+					"protocol": "https",
+					"host": [
+						"secure-plains-31314",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts",
+						"627f46136b35920dcfdbba5b"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
