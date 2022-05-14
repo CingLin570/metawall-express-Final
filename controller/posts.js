@@ -15,16 +15,17 @@ const posts = {
     successHandle(res, post);
   },
   createPosts: handleErrorAsync(async (req, res, next) => {
-    let { user, name, content, type, tags } = req.body;
-    if(content || name) {
+    let { user, content, type, tags, likes, image } = req.body;
+    if(content || user) {
       const findUser = await User.findById(user).exec();
       if(findUser) {
         const newPost = await Post.create({
-          name,
           content,
           user,
           type,
           tags,
+          likes,
+          image
         });
         successHandle(res, newPost);
       } else {
@@ -45,30 +46,31 @@ const posts = {
   deleteOnePosts: handleErrorAsync(async (req, res, next) => {
     const id = req.params.id;
     const post = await Post.findByIdAndDelete(id);
-    if(post !== null) { // post = null 查不到id
+    if(post !== null) { // post = null 查不到貼文id
       successHandle(res, post);
     } else {
-      appError(400, "刪除失敗，無此使用者ID", next);
+      appError(400, "刪除失敗，無此貼文ID", next);
     }
   }),
   updatePosts: handleErrorAsync(async (req, res, next) => {
     const id = req.params.id;
-    let { content, image, likes, type, tags } = req.body;
+    let { user, content, type, tags, likes, image } = req.body;
     if(content) {
       const post = await Post.findByIdAndUpdate(id, {
         $set: {
           content,
-          image,
-          likes,
+          user,
           type,
-          tags
-        },  
+          tags,
+          likes,
+          image
+        },
       },
       { new: true });
-      if(post !== null) { // post = null 查不到id
+      if(post !== null) { // post = null 查不到貼文id
         successHandle(res, post);
       } else {
-        appError(400, "更新失敗，無此使用者id或格式填寫錯誤", next);
+        appError(400, "更新失敗，無此貼文ID或格式填寫錯誤", next);
       }
     } else {
       appError(400, "更新失敗，未輸入必填貼文內容", next);
