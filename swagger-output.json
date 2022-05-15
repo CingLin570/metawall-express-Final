@@ -1,10 +1,10 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Meta API",
-    "description": "示範範例生成文件"
+    "title": "metawall API",
+    "description": "metawall API文件"
   },
-  "host": "localhost:3010",
+  "host": "https://secure-plains-31314.herokuapp.com",
   "basePath": "/",
   "tags": [],
   "schemes": [
@@ -109,23 +109,9 @@
                         "type": "string",
                         "example": "6278da02631ef7910e7adc37"
                       },
-                      "name": {
-                        "type": "string",
-                        "example": "員工弟弟"
-                      },
                       "content": {
                         "type": "string",
-                        "example": "這家店草真的好帥"
-                      },
-                      "tags": {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        }
-                      },
-                      "type": {
-                        "type": "string",
-                        "example": "person"
+                        "example": "今天天氣真好"
                       },
                       "image": {
                         "type": "string",
@@ -194,7 +180,7 @@
                       },
                       "content": {
                         "type": "string",
-                        "example": "這家店草真的好帥"
+                        "example": "今天天氣真好"
                       },
                       "image": {
                         "type": "string",
@@ -305,23 +291,9 @@
                       "type": "string",
                       "example": "627b143e88edb2f730f97feb"
                     },
-                    "name": {
-                      "type": "string",
-                      "example": "員工弟弟"
-                    },
                     "content": {
                       "type": "string",
-                      "example": "這家店草真的好帥"
-                    },
-                    "tags": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "type": {
-                      "type": "string",
-                      "example": "person"
+                      "example": "今天天氣真好"
                     },
                     "image": {
                       "type": "string",
@@ -383,23 +355,9 @@
                       "type": "string",
                       "example": "627b143e88edb2f730f97feb"
                     },
-                    "name": {
-                      "type": "string",
-                      "example": "員工弟弟"
-                    },
                     "content": {
                       "type": "string",
-                      "example": "這家店草真的好帥"
-                    },
-                    "tags": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "type": {
-                      "type": "string",
-                      "example": "person"
+                      "example": "今天天氣真好"
                     },
                     "image": {
                       "type": "string",
@@ -433,5 +391,71 @@
       }
     }
   },
-  "definitions": {}
+  "definitions": {
+    "Posts": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string",
+          "example": "範例資料"
+        },
+        "image": {
+          "type": "string",
+          "example": "https://...."
+        },
+        "likes": {
+          "type": "number",
+          "example": 123
+        },
+        "user": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "example": "123456789"
+            },
+            "name": {
+              "type": "string",
+              "example": "小明"
+            },
+            "photo": {
+              "type": "string",
+              "example": "https://...."
+            }
+          },
+          "required": [
+            "_id"
+          ]
+        },
+        "createdAt": {
+          "type": "string",
+          "example": "2022-05-03T09:00:00.226Z"
+        }
+      },
+      "required": [
+        "content"
+      ]
+    },
+    "Users": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "小明"
+        },
+        "email": {
+          "type": "string",
+          "example": "test123@gmail.com"
+        },
+        "photo": {
+          "type": "string",
+          "example": "https://..."
+        }
+      },
+      "required": [
+        "name",
+        "email"
+      ]
+    }
+  }
 }

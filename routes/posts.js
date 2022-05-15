@@ -25,13 +25,7 @@ router.get('/', (req, res, next) => {
             "status": "success",
             "message": [{
               "_id": "6278da02631ef7910e7adc37",
-              "name": "員工弟弟",
-              "content": "這家店草真的好帥",
-              "tags": [
-                "帥哥",
-                "店草"
-              ],
-              "type": "person",
+              "content": "今天天氣真好",
               "image": "",
               "user": {
                 "_id": "6277b20ad980d4df45db6447",
@@ -58,7 +52,7 @@ router.post('/', (req, res, next) => {
             "status": "success",
             "message": [{
               "_id": "6278b537c393fa2485a7eea4",
-              "content": "這家店草真的好帥",
+              "content": "今天天氣真好",
               "image": "",
               "user": {
                 "_id": "6277b20ad980d4df45db6447",
@@ -103,13 +97,7 @@ router.delete('/:id', (req, res, next) => {
           "status": "success",
           "message": {
           "_id": "627b143e88edb2f730f97feb",
-          "name": "員工弟弟",
-          "content": "這家店草真的好帥",
-          "tags": [
-            "帥哥",
-            "店草"
-          ],
-          "type": "person",
+          "content": "今天天氣真好",
           "image": "",
           "user": "6277b20ad980d4df45db6447",
           "likes": 0,
@@ -132,13 +120,7 @@ router.patch('/:id', (req, res, next) => {
           "status": "success",
           "message": {
           "_id": "627b143e88edb2f730f97feb",
-          "name": "員工弟弟",
-          "content": "這家店草真的好帥",
-          "tags": [
-            "帥哥",
-            "店草"
-          ],
-          "type": "person",
+          "content": "今天天氣真好",
           "image": "",
           "user": "6277b20ad980d4df45db6447",
           "likes": 0,

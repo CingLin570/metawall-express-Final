@@ -2,10 +2,10 @@ const swaggerAutogen = require('swagger-autogen')();
 
 const doc = {
   info: {
-    title: 'Meta API',
-    description: '示範範例生成文件',
+    title: 'metawall API',
+    description: 'metawall API文件',
   },
-  host: 'localhost:3010',
+  host: 'https://secure-plains-31314.herokuapp.com',
   schemes: ['http', 'https'],
   securityDefinitions: {
     apiKeyAuth: {
@@ -15,6 +15,24 @@ const doc = {
       description: '請加上 API Token'
     }
   },
+  definitions: {
+    Posts: {
+      $content: '範例資料',
+      image: 'https://....',
+      likes: 123,
+      user: {
+        $_id: '123456789',
+        name: '小明',
+        photo: 'https://....',
+      },
+      createdAt: '2022-05-03T09:00:00.226Z',
+    },
+    Users: {
+      $name: '小明',
+      $email: 'test123@gmail.com',
+      photo: 'https://...',
+    },
+  }
 };
 
 const outputFile = './swagger-output.json'; //生成檔案
