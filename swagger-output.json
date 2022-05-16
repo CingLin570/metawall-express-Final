@@ -137,10 +137,6 @@
                       "likes": {
                         "type": "number",
                         "example": 0
-                      },
-                      "__v": {
-                        "type": "number",
-                        "example": 0
                       }
                     }
                   }
@@ -204,10 +200,6 @@
                         }
                       },
                       "likes": {
-                        "type": "number",
-                        "example": 0
-                      },
-                      "__v": {
                         "type": "number",
                         "example": 0
                       }
@@ -310,10 +302,6 @@
                     "createdAt": {
                       "type": "string",
                       "example": "2022-05-11T01:41:18.681Z"
-                    },
-                    "__v": {
-                      "type": "number",
-                      "example": 0
                     }
                   }
                 }
@@ -374,10 +362,41 @@
                     "createdAt": {
                       "type": "string",
                       "example": "2022-05-11T01:41:18.681Z"
-                    },
-                    "__v": {
-                      "type": "number",
-                      "example": 0
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/files/": {
+      "post": {
+        "tags": [
+          "Files - 圖片上傳"
+        ],
+        "description": "圖片上傳 API",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "貼文資訊",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "message": {
+                  "type": "object",
+                  "properties": {
+                    "link": {
+                      "type": "string",
+                      "example": "https://i.imgur.com/123.png"
                     }
                   }
                 }
