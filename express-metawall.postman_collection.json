@@ -98,7 +98,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "https://secure-plains-31314.herokuapp.com/posts/62808962742cd0c6cfabbf33",
+					"raw": "https://secure-plains-31314.herokuapp.com/posts/6281ba1581759356adf85fc1",
 					"protocol": "https",
 					"host": [
 						"secure-plains-31314",
@@ -107,7 +107,7 @@
 					],
 					"path": [
 						"posts",
-						"62808962742cd0c6cfabbf33"
+						"6281ba1581759356adf85fc1"
 					]
 				}
 			},
@@ -128,7 +128,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://secure-plains-31314.herokuapp.com/posts/62808962742cd0c6cfabbf33",
+					"raw": "https://secure-plains-31314.herokuapp.com/posts/6281ba1581759356adf85fc1",
 					"protocol": "https",
 					"host": [
 						"secure-plains-31314",
@@ -137,7 +137,27 @@
 					],
 					"path": [
 						"posts",
-						"62808962742cd0c6cfabbf33"
+						"6281ba1581759356adf85fc1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "取得全部使用者",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://secure-plains-31314.herokuapp.com/users",
+					"protocol": "https",
+					"host": [
+						"secure-plains-31314",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"users"
 					]
 				}
 			},
