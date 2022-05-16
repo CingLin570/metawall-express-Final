@@ -32,8 +32,7 @@ router.get('/', (req, res, next) => {
                 "name": "Johnny",
                 "photo": ""
               },
-              "likes": 0,
-              "__v": 0
+              "likes": 0
             }]
           }
         }
@@ -59,8 +58,7 @@ router.post('/', (req, res, next) => {
                 "name": "Johnny",
                 "photo": ""
               },
-            "likes": 0,
-            "__v": 0
+            "likes": 0
             }]
           }
         }
@@ -101,8 +99,7 @@ router.delete('/:id', (req, res, next) => {
           "image": "",
           "user": "6277b20ad980d4df45db6447",
           "likes": 0,
-          "createdAt": "2022-05-11T01:41:18.681Z",
-          "__v": 0
+          "createdAt": "2022-05-11T01:41:18.681Z"
           }
         }
       }
@@ -124,8 +121,7 @@ router.patch('/:id', (req, res, next) => {
           "image": "",
           "user": "6277b20ad980d4df45db6447",
           "likes": 0,
-          "createdAt": "2022-05-11T01:41:18.681Z",
-          "__v": 0
+          "createdAt": "2022-05-11T01:41:18.681Z"
           }
         }
       }
