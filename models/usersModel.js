@@ -12,8 +12,10 @@ const userSchema = new mongoose.Schema({
       select: false
     },
     photo: String,
+  },
+  {
+    versionKey: false,
   });
-// User
 const User = mongoose.model('user', userSchema);
 
 module.exports = User;
