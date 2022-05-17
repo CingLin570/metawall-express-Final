@@ -54,8 +54,375 @@
                       },
                       "photo": {
                         "type": "string",
-                        "example": "123.png"
+                        "example": "https://i.imgur.com/kti21m2.jpg"
                       }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/register": {
+      "post": {
+        "tags": [
+          "Users - 使用者"
+        ],
+        "description": "使用者註冊 API",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "type": "object",
+            "required": true,
+            "description": "資料格式",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "小明"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "123@gmail.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "12345678"
+                },
+                "confirmPassword": {
+                  "type": "string",
+                  "example": "12345678"
+                }
+              },
+              "required": [
+                "name",
+                "email",
+                "password",
+                "confirmPassword"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "註冊資訊",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "user": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "example": "eyJhbGci..."
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "小明"
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "tags": [
+          "Users - 使用者"
+        ],
+        "description": "使用者登入 API",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "type": "object",
+            "required": true,
+            "description": "資料格式",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "123@gmail.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "12345678"
+                }
+              },
+              "required": [
+                "email",
+                "password"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "註冊資訊",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "user": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "example": "eyJhbGci..."
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "小明"
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/profile": {
+      "get": {
+        "tags": [
+          "Users - 使用者"
+        ],
+        "description": "取得個人資訊 API",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "註冊資訊",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "message": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "example": "628fd55f474da4b3b4561323"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "小明"
+                    },
+                    "sex": {
+                      "type": "string",
+                      "example": "male"
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Users - 使用者"
+        ],
+        "description": "修改個人資訊 API",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "註冊資訊",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "message": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "example": "628fd55f474da4b3b4561323"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "小明"
+                    },
+                    "sex": {
+                      "type": "string",
+                      "example": "male"
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/profile/{id}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "description": "查看其他用戶資訊",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "用戶ID"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "user 資訊",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "message": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "example": "628fd55f474da4b3b4fmg323"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "小明"
+                    },
+                    "sex": {
+                      "type": "string",
+                      "example": "male"
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/updatePassword": {
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "description": "更改密碼 API",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "type": "object",
+            "required": true,
+            "description": "資料格式",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "password": {
+                  "type": "string",
+                  "example": "12345678"
+                },
+                "confirmPassword": {
+                  "type": "string",
+                  "example": "12345678"
+                }
+              },
+              "required": [
+                "password",
+                "confirmPassword"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "user 資訊",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "user": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "example": "eyJhbGci..."
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "小明"
                     }
                   }
                 }
@@ -76,14 +443,21 @@
         "description": "取得全部貼文 API",
         "parameters": [
           {
-            "name": "sort",
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token"
+          },
+          {
+            "name": "timeSort",
             "in": "query",
             "type": "string",
             "required": false,
             "description": "排序：desc/asc"
           },
           {
-            "name": "keyword",
+            "name": "q",
             "in": "query",
             "type": "string",
             "required": false,
@@ -154,7 +528,47 @@
           "Posts - 貼文"
         ],
         "description": "新增單筆貼文 API",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "type": "object",
+            "required": true,
+            "description": "資料格式",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "string",
+                  "example": "6277b20ad980d4df45db6447"
+                },
+                "content": {
+                  "type": "string",
+                  "example": "今天天氣真好"
+                },
+                "image": {
+                  "type": "string",
+                  "example": "https://i.imgur.com/ktss1mN.jpg"
+                },
+                "like": {
+                  "type": "number",
+                  "example": 0
+                }
+              },
+              "required": [
+                "user",
+                "content"
+              ]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "貼文資訊",
@@ -180,7 +594,7 @@
                       },
                       "image": {
                         "type": "string",
-                        "example": ""
+                        "example": "https://i.imgur.com/ktss1mN.jpg"
                       },
                       "user": {
                         "type": "object",
@@ -263,7 +677,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "貼文ID"
           }
         ],
         "responses": {
@@ -289,7 +704,7 @@
                     },
                     "image": {
                       "type": "string",
-                      "example": ""
+                      "example": "https://i.imgur.com/ktss1mN.jpg"
                     },
                     "user": {
                       "type": "string",
@@ -323,7 +738,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "type": "string",
+            "description": "貼文ID"
           }
         ],
         "responses": {
@@ -349,7 +765,7 @@
                     },
                     "image": {
                       "type": "string",
-                      "example": ""
+                      "example": "https://i.imgur.com/ktss1mN.jpg"
                     },
                     "user": {
                       "type": "string",
@@ -380,7 +796,22 @@
           "Files - 圖片上傳"
         ],
         "description": "圖片上傳 API",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token"
+          },
+          {
+            "name": "image",
+            "in": "formData",
+            "type": "file",
+            "required": true,
+            "description": "資料格式"
+          }
+        ],
         "responses": {
           "200": {
             "description": "貼文資訊",
@@ -469,11 +900,24 @@
         "photo": {
           "type": "string",
           "example": "https://..."
+        },
+        "sex": {
+          "type": "string",
+          "example": "male"
+        },
+        "password": {
+          "type": "string",
+          "example": "12345678"
+        },
+        "createdAt": {
+          "type": "string",
+          "example": "2022-05-03T09:00:00.226Z"
         }
       },
       "required": [
         "name",
-        "email"
+        "email",
+        "password"
       ]
     }
   }

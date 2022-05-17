@@ -31,6 +31,9 @@ const doc = {
       $name: '小明',
       $email: 'test123@gmail.com',
       photo: 'https://...',
+      sex: 'male',
+      $password: '12345678',
+      createdAt: '2022-05-03T09:00:00.226Z',
     },
   }
 };

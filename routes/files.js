@@ -1,23 +1,24 @@
 var express = require('express');
 var router = express.Router();
-const FilesContollers = require("../controller/files");
-const multer  = require('multer');
-const upload = multer({
-  limits: {
-    fileSize: 1 * 1024 * 1024,
-  },
-  fileFilter(req, file, cb) {
-    // 只接受三種圖片格式
-    if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-      cb(new Error('Please upload an image'))
-    }
-    cb(null, true)
-  }
-});
+const { files, upload } = require("../controller/files");
+const { checkAuth, generateSendJWT } = require('../service/auth');
 
-router.post('/', upload.single('image'), (req, res, next) => {
+router.post('/', checkAuth, upload.single('image'), (req, res, next) => {
     /**
      * #swagger.tags = ['Files - 圖片上傳']
+     * #swagger.parameters['Authorization'] = {
+        in: 'header',
+        type: 'string',
+        required: true,
+        description: 'Bearer token'
+      }
+     * #swagger.parameters['body'] = {
+            in: 'formData',
+            name: 'image',
+            type: 'file',
+            required: true,
+            description: '資料格式'
+        }
      * #swagger.description = '圖片上傳 API'
      * #swagger.responses[200] = {
           description: '貼文資訊',
@@ -30,7 +31,7 @@ router.post('/', upload.single('image'), (req, res, next) => {
         }
       }
      */
-    FilesContollers.createImage(req, res, next);
+    files.createImage(req, res, next);
 });
 
 module.exports = router;
