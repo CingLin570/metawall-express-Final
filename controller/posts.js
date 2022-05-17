@@ -15,7 +15,7 @@ const posts = {
     successHandle(res, post);
   },
   createPosts: handleErrorAsync(async (req, res, next) => {
-    let { user, content, likes, image } = req.body;
+    const { user, content, likes, image } = req.body;
     if(content || user) {
       const findUser = await User.findById(user).exec();
       if(findUser) {
@@ -52,7 +52,7 @@ const posts = {
   }),
   updatePosts: handleErrorAsync(async (req, res, next) => {
     const id = req.params.id;
-    let { user, content, likes, image } = req.body;
+    const { user, content, likes, image } = req.body;
     if(content) {
       const post = await Post.findByIdAndUpdate(id, {
         $set: {
