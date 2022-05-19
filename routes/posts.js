@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
-const PostsContollers = require("../controller/posts");
+const PostsContollers = require('../controller/posts');
 const { checkAuth, generateSendJWT } = require('../service/auth');
 
 // 取得特定條件posts
 router.get('/', checkAuth, (req, res, next) => {
-    /**
+  /**
      * #swagger.tags = ['Posts - 貼文']
      * #swagger.description = '取得全部貼文 API'
      * #swagger.parameters['Authorization'] = {
@@ -49,7 +49,7 @@ router.get('/', checkAuth, (req, res, next) => {
 });
 // 新增單一post
 router.post('/', checkAuth, (req, res, next) => {
-    /**
+  /**
      * #swagger.tags = ['Posts - 貼文']
      * #swagger.description = '新增單筆貼文 API'
      * #swagger.parameters['Authorization'] = {
@@ -89,11 +89,11 @@ router.post('/', checkAuth, (req, res, next) => {
         }
       }
      */
-      PostsContollers.createPosts(req, res, next);
+  PostsContollers.createPosts(req, res, next);
 });
 // 刪除全部posts
 router.delete('/', (req, res, next) => {
-    /**
+  /**
      * #swagger.tags = ['Posts - 貼文']
      * #swagger.description = '刪除全部貼文 API'
      * #swagger.responses[200] = {
@@ -111,7 +111,7 @@ router.delete('/', (req, res, next) => {
 });
 // 刪除單一posts
 router.delete('/:id', (req, res, next) => {
-    /**
+  /**
      * #swagger.tags = ['Posts - 貼文']
      * #swagger.description = '刪除單筆貼文 API'
      * #swagger.parameters['id'] = {
@@ -139,7 +139,7 @@ router.delete('/:id', (req, res, next) => {
 });
 // 修改單一post
 router.patch('/:id', (req, res, next) => {
-    /**
+  /**
      * #swagger.tags = ['Posts - 貼文']
      * #swagger.description = '修改單筆貼文 API'
      * #swagger.parameters['id'] = {

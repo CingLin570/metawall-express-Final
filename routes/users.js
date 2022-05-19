@@ -1,27 +1,8 @@
 var express = require('express');
 var router = express.Router();
-const UsersContollers = require("../controller/users");
+const UsersContollers = require('../controller/users');
 const { checkAuth, generateSendJWT } = require('../service/auth');
 
-// 取得使用者
-router.get('/', (req, res, next) => {
-    /**
-   * #swagger.tags = ['Users - 使用者']
-   * #swagger.description = '取得全部使用者 API'
-   * #swagger.responses[200] = {
-          description: 'user 資訊',
-          schema: {
-              status: 'success',
-              message: [{
-                  _id: '6277b20ad980d4df45db6447',
-                  name: 'Johnny',
-                  photo: 'https://i.imgur.com/kti21m2.jpg'
-              }]
-          }
-      }
-   */
-    UsersContollers.getUsers(req, res, next);
-});
 // 註冊
 router.post('/register', (req, res, next) => {
   /**
@@ -42,10 +23,10 @@ router.post('/register', (req, res, next) => {
    * #swagger.responses[200] = {
       description: '註冊資訊',
       schema: {
-        "status": "success",
-          "user": {
-            "token": "eyJhbGci...",
-            "name": "小明"
+        status: 'success',
+          user: {
+            token: 'eyJhbGci...',
+            name: '小明'
           }
         }
       }
@@ -54,7 +35,7 @@ router.post('/register', (req, res, next) => {
 });
 
 // 登入
-router.post('/login', function(req, res, next) {
+router.post('/login', function (req, res, next) {
   /**
    * #swagger.tags = ['Users - 使用者']
    * #swagger.description = '使用者登入 API'
@@ -71,19 +52,19 @@ router.post('/login', function(req, res, next) {
    * #swagger.responses[200] = {
       description: '註冊資訊',
       schema: {
-        "status": "success",
-        "user": {
-          "token": "eyJhbGci...",
-          "name": "小明"
+        status: 'success',
+        user: {
+          token: 'eyJhbGci...',
+          name: '小明'
         }
       }
     }
  */
-    UsersContollers.login(req, res, next);
+  UsersContollers.login(req, res, next);
 });
 
 // 取得個人資訊
-router.get('/profile', checkAuth, function(req, res, next) {
+router.get('/profile', checkAuth, function (req, res, next) {
   /**
    * #swagger.tags = ['Users - 使用者']
    * #swagger.description = '取得個人資訊 API'
@@ -96,11 +77,11 @@ router.get('/profile', checkAuth, function(req, res, next) {
    * #swagger.responses[200] = {
       description: '註冊資訊',
       schema: {
-        "status": "success",
-        "message": {
-          "_id": "628fd55f474da4b3b4561323",
-          "name": "小明",
-          "sex": "male"
+        status: 'success',
+        message: {
+          _id: '628fd55f474da4b3b4561323',
+          name: '小明',
+          sex: 'male'
         }
       }
     }
@@ -109,7 +90,7 @@ router.get('/profile', checkAuth, function(req, res, next) {
 });
 
 // 修改個人資訊
-router.patch('/profile', checkAuth, function(req, res, next) {
+router.patch('/profile', checkAuth, function (req, res, next) {
   /**
    * #swagger.tags = ['Users - 使用者']
    * #swagger.description = '修改個人資訊 API'
@@ -122,11 +103,11 @@ router.patch('/profile', checkAuth, function(req, res, next) {
    * #swagger.responses[200] = {
       description: '註冊資訊',
       schema: {
-        "status": "success",
-        "message": {
-          "_id": "628fd55f474da4b3b4561323",
-          "name": "小明",
-          "sex": "male"
+        status: 'success',
+        message: {
+          _id: '628fd55f474da4b3b4561323',
+          name: '小明',
+          sex: 'male'
         }
       }
     }
@@ -135,9 +116,9 @@ router.patch('/profile', checkAuth, function(req, res, next) {
 });
 
 // 取得其他使用者資訊
-router.get('/profile/:id', checkAuth, function(req, res, next) {
-    /**
-     * #swagger.tags = ['Users']
+router.get('/profile/:id', checkAuth, function (req, res, next) {
+  /**
+     * #swagger.tags = ['Users - 使用者']
      * #swagger.description = '查看其他用戶資訊'
      * #swagger.parameters['Authorization'] = {
             in: 'header',
@@ -155,10 +136,10 @@ router.get('/profile/:id', checkAuth, function(req, res, next) {
             description: 'user 資訊',
             schema: {
               status: 'success',
-              "message": {
-                "_id": "628fd55f474da4b3b4fmg323",
-                "name": "小明",
-                "sex": "male"
+              message: {
+                _id: '628fd55f474da4b3b4fmg323',
+                name: '小明',
+                sex: 'male'
               }
             }
         }
@@ -167,9 +148,9 @@ router.get('/profile/:id', checkAuth, function(req, res, next) {
 });
 
 // 修改密碼
-router.patch('/updatePassword', checkAuth, function(req, res, next) {
-    /**
-     * #swagger.tags = ['Users']
+router.patch('/updatePassword', checkAuth, function (req, res, next) {
+  /**
+     * #swagger.tags = ['Users - 使用者']
      * #swagger.description = '更改密碼 API'
      * #swagger.parameters['Authorization'] = {
             in: 'header',
@@ -190,10 +171,10 @@ router.patch('/updatePassword', checkAuth, function(req, res, next) {
      * #swagger.responses[200] = {
             description: 'user 資訊',
             schema: {
-              "status": "success",
-              "user": {
-                "token": "eyJhbGci...",
-                "name": "小明"
+              status: 'success',
+              user: {
+                token: 'eyJhbGci...',
+                name: '小明'
               }
             }
         }

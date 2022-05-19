@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
-const { files, upload } = require("../controller/files");
+const { files, upload } = require('../controller/files');
 const { checkAuth, generateSendJWT } = require('../service/auth');
 
 router.post('/', checkAuth, upload.single('image'), (req, res, next) => {
-    /**
+  /**
      * #swagger.tags = ['Files - 圖片上傳']
      * #swagger.parameters['Authorization'] = {
         in: 'header',
@@ -23,15 +23,15 @@ router.post('/', checkAuth, upload.single('image'), (req, res, next) => {
      * #swagger.responses[200] = {
           description: '貼文資訊',
           schema: {
-            "status": "success",
-            "message": {
-              "link": "https://i.imgur.com/123.png"
+            status: 'success',
+            message: {
+              link: 'https://i.imgur.com/123.png'
             }
           }
         }
       }
      */
-    files.createImage(req, res, next);
+  files.createImage(req, res, next);
 });
 
 module.exports = router;
