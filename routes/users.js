@@ -25,8 +25,11 @@ router.post('/register', (req, res, next) => {
       schema: {
         status: 'success',
           user: {
-            token: 'eyJhbGci...',
-            name: '小明'
+            email: '123@gmail.com',
+            name: '小明',
+            password: '$2a$12$0/MetZwy....',
+            sex: '',
+            photo: ''
           }
         }
       }
