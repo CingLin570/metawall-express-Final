@@ -12,8 +12,8 @@ const doc = {
       type: 'apiKey',
       in: 'headers',
       name: 'authorization',
-      description: '請加上 API Token'
-    }
+      description: '請加上 API Token',
+    },
   },
   definitions: {
     Posts: {
@@ -35,7 +35,7 @@ const doc = {
       $password: '12345678',
       createdAt: '2022-05-03T09:00:00.226Z',
     },
-  }
+  },
 };
 
 const outputFile = './swagger-output.json'; //生成檔案
