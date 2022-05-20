@@ -121,32 +121,32 @@ router.patch('/profile', checkAuth, function (req, res, next) {
 // 取得其他使用者資訊
 router.get('/profile/:id', checkAuth, function (req, res, next) {
   /**
-     * #swagger.tags = ['Users - 使用者']
-     * #swagger.description = '查看其他用戶資訊'
-     * #swagger.parameters['Authorization'] = {
-            in: 'header',
-            type: 'string',
-            required: true,
-            description: 'Bearer token'
+   * #swagger.tags = ['Users - 使用者']
+   * #swagger.description = '查看其他用戶資訊'
+   * #swagger.parameters['Authorization'] = {
+      in: 'header',
+      type: 'string',
+      required: true,
+      description: 'Bearer token'
+    }
+   * #swagger.parameters['id'] = {
+      in: 'path',
+      type: 'string',
+      required: true,
+      description: '用戶ID'
+    }
+   * #swagger.responses[200] = {
+      description: 'user 資訊',
+      schema: {
+        status: 'success',
+        message: {
+          _id: '628fd55f474da4b3b4fmg323',
+          name: '小明',
+          sex: 'male'
         }
-     * #swagger.parameters['id'] = {
-            in: 'path',
-            type: 'string',
-            required: true,
-            description: '用戶ID'
-        }
-     * #swagger.responses[200] = {
-            description: 'user 資訊',
-            schema: {
-              status: 'success',
-              message: {
-                _id: '628fd55f474da4b3b4fmg323',
-                name: '小明',
-                sex: 'male'
-              }
-            }
-        }
-     */
+      }
+    }
+  */
   UsersContollers.getProfileById(req, res, next);
 });
 

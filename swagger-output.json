@@ -77,13 +77,25 @@
                 "user": {
                   "type": "object",
                   "properties": {
-                    "token": {
+                    "email": {
                       "type": "string",
-                      "example": "eyJhbGci..."
+                      "example": "123@gmail.com"
                     },
                     "name": {
                       "type": "string",
                       "example": "小明"
+                    },
+                    "password": {
+                      "type": "string",
+                      "example": "$2a$12$0/MetZwy...."
+                    },
+                    "sex": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "photo": {
+                      "type": "string",
+                      "example": ""
                     }
                   }
                 }
