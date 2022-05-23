@@ -64,10 +64,8 @@ router.post('/', checkAuth, (req, res, next) => {
         required: true,
         description: '資料格式',
         schema: {
-          $user: '6277b20ad980d4df45db6447',
           $content: '今天天氣真好',
           image: 'https://i.imgur.com/ktss1mN.jpg',
-          like: 0
           }
         }
      * #swagger.responses[200] = {
