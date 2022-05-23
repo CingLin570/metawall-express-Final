@@ -18,23 +18,18 @@ const posts = {
     successHandle(res, post);
   },
   createPosts: handleErrorAsync(async (req, res, next) => {
-    const { user, content, likes, image } = req.body;
-    if (content || user) {
-      const findUser = await User.findById(user).exec();
-      if (findUser) {
+    const user = req.user.id;
+    const { content, image } = req.body;
+      if (content) {
         const newPost = await Post.create({
           content,
           user,
-          likes,
           image,
         });
         successHandle(res, newPost);
       } else {
-        appError(400, '新增失敗，無此使用者ID', next);
+        appError(400, '新增失敗，內容必須填寫', next);
       }
-    } else {
-      appError(400, '新增失敗，必填項目 content 或 name 沒有填寫資料', next);
-    }
   }),
   deleteAllPosts: handleErrorAsync(async (req, res, next) => {
     if (req.originalUrl !== '/posts/') {
