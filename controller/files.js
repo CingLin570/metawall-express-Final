@@ -1,5 +1,5 @@
 const { ImgurClient } = require('imgur');
-const client = new ImgurClient({ accessToken: process.env.IMGUR_ACCESS_TOKEN });
+const sizeOf = require('image-size')
 const { errorHandle, successHandle } = require('../service/responseHandler');
 const appError = require('../service/appError');
 const handleErrorAsync = require('../service/handleErrorAsync');
@@ -16,20 +16,29 @@ const upload = multer({
     }
     cb(null, true);
   },
-});
+}).single('image');
 
 const files = {
   createImage: handleErrorAsync(async (req, res, next) => {
+    const client = new ImgurClient({
+      clientId: process.env.IMGUR_CLIENT_ID,
+      clientSecret: process.env.IMGUR_CLIENT_SECRET,
+      refreshToken: process.env.IMGUR_REFRESH_TOKEN,
+    });
     if (!req.file) {
-      appError(400, '無選取檔案', next);
-    } else {
+      return appError(400, '無選取檔案', next);
+    }
+    const dimensions = sizeOf(req.file.buffer);
+    if(dimensions.width !== dimensions.height) {
+      return next(appError(400,"圖片長寬不符合 1:1 尺寸。",next))
+    }
       const imageFile = req.file;
       const response = await client.upload({
         image: Buffer.from(imageFile.buffer).toString('base64'),
         type: 'base64',
+        album: process.env.IMGUR_ALBUM_ID
       });
       successHandle(res, { link: response.data.link });
-    }
   }),
 };
 
