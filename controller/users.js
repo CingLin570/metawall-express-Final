@@ -6,6 +6,20 @@ const { errorHandle, successHandle } = require('../service/responseHandler');
 const appError = require('../service/appError');
 const handleErrorAsync = require('../service/handleErrorAsync');
 
+const defaultOptions = {
+  minLength: 8,
+  minLowercase: 1,
+  minUppercase: 1,
+  minNumbers: 1,
+  minSymbols: 0,
+  returnScore: false,
+  pointsPerUnique: 0,
+  pointsPerRepeat: 0,
+  pointsForContainingLower: 0,
+  pointsForContainingUpper: 0,
+  pointsForContainingNumber: 0,
+  pointsForContainingSymbol: 0,
+};
 const users = {
   register: handleErrorAsync(async (req, res, next) => {
     let { email, password, confirmPassword, name } = req.body;
@@ -18,9 +32,13 @@ const users = {
     if (password !== confirmPassword) {
       errorMessageArr.push('密碼不一致！');
     }
-    // 密碼 8 碼以上
-    if (!validator.isLength(password, { min: 8 })) {
-      errorMessageArr.push('密碼字數低於 8 碼');
+    // 密碼八碼以上並英數混合
+    if (!validator.isStrongPassword(password, defaultOptions)) {
+      errorMessageArr.push('密碼需符合八碼以上並英數混合');
+    }
+    // 暱稱是否為至少兩個字元
+    if (!validator.isLength(name, { min: 2 })) {
+      errorMessageArr.push('暱稱至少兩個字元');
     }
     // 是否為 Email
     if (!validator.isEmail(email)) {
@@ -100,7 +118,10 @@ const users = {
           photo,
         },
       },
-      { new: true }
+      {
+        new: true,
+        runValidators: true,
+      }
     );
     successHandle(res, updateUser);
   }),
@@ -111,9 +132,9 @@ const users = {
     if (password !== confirmPassword) {
       errorMessageArr.push('密碼不一致！');
     }
-    // 密碼 8 碼以上
-    if (!validator.isLength(password, { min: 8 })) {
-      errorMessageArr.push('密碼字數低於 8 碼');
+    // 密碼八碼以上並英數混合
+    if (!validator.isStrongPassword(password, defaultOptions)) {
+      errorMessageArr.push('密碼需符合八碼以上並英數混合');
     }
     if (errorMessageArr.length > 0) {
       errorMessage = errorMessageArr.join(', ');
