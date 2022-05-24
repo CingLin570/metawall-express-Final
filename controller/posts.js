@@ -63,7 +63,10 @@ const posts = {
             image,
           },
         },
-        { new: true }
+        { 
+          new: true,
+          runValidators: true,
+        }
       );
       if (post !== null) {
         // post = null 查不到貼文id
