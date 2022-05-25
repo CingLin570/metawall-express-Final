@@ -12,7 +12,7 @@ const upload = multer({
   fileFilter(req, file, cb) {
     // 只接受三種圖片格式
     if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-      cb(new Error('Please upload an image'));
+      cb(new Error('檔案格式錯誤，僅限上傳 jpg、jpeg 與 png 格式。'));
     }
     cb(null, true);
   },
@@ -25,12 +25,15 @@ const files = {
       clientSecret: process.env.IMGUR_CLIENT_SECRET,
       refreshToken: process.env.IMGUR_REFRESH_TOKEN,
     });
+    const { name } = req.body
     if (!req.file) {
       return appError(400, '無選取檔案', next);
     }
-    const dimensions = sizeOf(req.file.buffer);
-    if(dimensions.width !== dimensions.height) {
-      return next(appError(400,"圖片長寬不符合 1:1 尺寸。",next))
+    if (name) {
+      const dimensions = sizeOf(req.file.buffer);
+      if(dimensions.width !== dimensions.height) {
+        return next(appError(400,"圖片長寬不符合 1:1 尺寸。",next))
+      }
     }
       const imageFile = req.file;
       const response = await client.upload({
