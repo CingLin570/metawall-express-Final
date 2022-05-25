@@ -5,7 +5,7 @@ const { checkAuth, generateSendJWT } = require('../service/auth');
 const { errorHandle, successHandle } = require('../service/responseHandler');
 const appError = require('../service/appError');
 const handleErrorAsync = require('../service/handleErrorAsync');
-
+// 設定預設 isStrongPassword 驗證
 const defaultOptions = {
   minLength: 8,
   minLowercase: 1,
@@ -32,9 +32,9 @@ const users = {
     if (password !== confirmPassword) {
       errorMessageArr.push('密碼不一致！');
     }
-    // 密碼八碼以上並英數混合
+    // 密密碼需符合八碼以上並英數混合，至少各一個大小寫英文字母
     if (!validator.isStrongPassword(password, defaultOptions)) {
-      errorMessageArr.push('密碼需符合八碼以上並英數混合');
+      errorMessageArr.push('密碼需符合八碼以上並英數混合，至少各一個大小寫英文字母');
     }
     // 暱稱是否為至少兩個字元
     if (!validator.isLength(name, { min: 2 })) {
@@ -132,9 +132,9 @@ const users = {
     if (password !== confirmPassword) {
       errorMessageArr.push('密碼不一致！');
     }
-    // 密碼八碼以上並英數混合
+    // 密碼需符合八碼以上並英數混合，至少各一個大小寫英文字母
     if (!validator.isStrongPassword(password, defaultOptions)) {
-      errorMessageArr.push('密碼需符合八碼以上並英數混合');
+      errorMessageArr.push('密碼需符合八碼以上並英數混合，至少各一個大小寫英文字母');
     }
     if (errorMessageArr.length > 0) {
       errorMessage = errorMessageArr.join(', ');
