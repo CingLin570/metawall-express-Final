@@ -16,15 +16,13 @@ const checkAuth = handleErrorAsync(async (req, res, next) => {
   }
 
   // 驗證 token 正確性
-  const decoded = await new Promise((resolve, reject) => {
-    jwt.verify(token, process.env.JWT_SECRET, (err, payload) => {
+  const decoded = jwt.verify(token, process.env.JWT_SECRET, (err, payload) => {
       if (err) {
-        reject(err);
+        return appError(404, '驗證失敗，請重新登入', next);
       } else {
-        resolve(payload);
+        return payload
       }
     });
-  });
   const currentUser = await User.findById(decoded.id);
 
   req.user = currentUser;
