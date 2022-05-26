@@ -5,21 +5,7 @@ const { checkAuth, generateSendJWT } = require('../service/auth');
 const { errorHandle, successHandle } = require('../service/responseHandler');
 const appError = require('../service/appError');
 const handleErrorAsync = require('../service/handleErrorAsync');
-// 設定預設 isStrongPassword 驗證
-const defaultOptions = {
-  minLength: 8,
-  minLowercase: 1,
-  minUppercase: 1,
-  minNumbers: 1,
-  minSymbols: 0,
-  returnScore: false,
-  pointsPerUnique: 0,
-  pointsPerRepeat: 0,
-  pointsForContainingLower: 0,
-  pointsForContainingUpper: 0,
-  pointsForContainingNumber: 0,
-  pointsForContainingSymbol: 0,
-};
+
 const users = {
   register: handleErrorAsync(async (req, res, next) => {
     let { email, password, confirmPassword, name } = req.body;
@@ -32,9 +18,19 @@ const users = {
     if (password !== confirmPassword) {
       errorMessageArr.push('密碼不一致！');
     }
-    // 密密碼需符合八碼以上並英數混合，至少各一個大小寫英文字母
-    if (!validator.isStrongPassword(password, defaultOptions)) {
-      errorMessageArr.push('密碼需符合八碼以上並英數混合，至少各一個大小寫英文字母');
+    // 密碼需符合八碼以上並英數混合，至少各一個大小寫英文字母
+    if (
+      !validator.isStrongPassword(password, {
+        minLength: 8,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 0,
+      })
+    ) {
+      errorMessageArr.push(
+        '密碼需符合八碼以上並英數混合，至少各一個大小寫英文字母'
+      );
     }
     // 暱稱是否為至少兩個字元
     if (!validator.isLength(name, { min: 2 })) {
@@ -48,31 +44,21 @@ const users = {
       errorMessage = errorMessageArr.join(', ');
       return next(appError(400, errorMessage, next));
     }
-    // 查詢是否存在已註冊名稱以及信箱
-    await User.findOne({ $or: [{ email }, { name }] })
-      .select('+email')
-      .exec(async (err, user) => {
-        if (user) {
-          const existsUser =
-            user.email === email.toLowerCase()
-              ? user.name === name.trim()
-                ? '信箱與使用者名稱重複，請重新輸入'
-                : '信箱重複，請重新輸入'
-              : '使用者名稱重複，請重新輸入';
-          next(appError(400, existsUser, next));
-        } else {
-          // 加密密碼
-          password = await bcrypt.hash(req.body.password, 12);
-          const newUser = await User.create({
-            email,
-            password,
-            name,
-            sex: '',
-            photo: '',
-          });
-          successHandle(res, newUser);
-        }
-      });
+    // 查詢是否存在信箱
+    const findUserByMail = await User.findOne({ email });
+    if (findUserByMail) {
+      return appError('email 已註冊', 400, next);
+    }
+    // 加密密碼
+    password = await bcrypt.hash(req.body.password, 12);
+    const newUser = await User.create({
+      email,
+      password,
+      name,
+      sex: '',
+      photo: '',
+    });
+    successHandle(res, newUser);
   }),
   login: handleErrorAsync(async (req, res, next) => {
     const { email, password } = req.body;
@@ -91,18 +77,6 @@ const users = {
   }),
   getOwnProfile: handleErrorAsync(async (req, res, next) => {
     successHandle(res, req.user);
-  }),
-  getProfileById: handleErrorAsync(async (req, res, next) => {
-    const id = req.params.id;
-    if (!id) {
-      return next(appError(400, '取得失敗，使用者id必須填寫', next));
-    }
-    const findUser = await User.findById(id).exec();
-    if (!findUser) {
-      return next(appError(400, '取得失敗，查無此使用者id', next));
-    }
-    const { name, photo } = findUser;
-    successHandle(res, { name, photo });
   }),
   updateProfile: handleErrorAsync(async (req, res, next) => {
     const { name, sex, photo } = req.body;
@@ -133,8 +107,18 @@ const users = {
       errorMessageArr.push('密碼不一致！');
     }
     // 密碼需符合八碼以上並英數混合，至少各一個大小寫英文字母
-    if (!validator.isStrongPassword(password, defaultOptions)) {
-      errorMessageArr.push('密碼需符合八碼以上並英數混合，至少各一個大小寫英文字母');
+    if (
+      !validator.isStrongPassword(password, {
+        minLength: 8,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 0,
+      })
+    ) {
+      errorMessageArr.push(
+        '密碼需符合八碼以上並英數混合，至少各一個大小寫英文字母'
+      );
     }
     if (errorMessageArr.length > 0) {
       errorMessage = errorMessageArr.join(', ');
