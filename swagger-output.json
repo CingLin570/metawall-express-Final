@@ -460,15 +460,7 @@
           "Posts - 貼文"
         ],
         "description": "刪除全部貼文 API",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string",
-            "required": true,
-            "description": "Bearer token"
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "貼文資訊",
@@ -612,13 +604,6 @@
             "required": true,
             "type": "string",
             "description": "貼文ID"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string",
-            "required": true,
-            "description": "Bearer token"
           }
         ],
         "responses": {
@@ -680,13 +665,6 @@
             "required": true,
             "type": "string",
             "description": "貼文ID"
-          },
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string",
-            "required": true,
-            "description": "Bearer token"
           },
           {
             "name": "body",
