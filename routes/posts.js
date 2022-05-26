@@ -90,16 +90,10 @@ router.post('/post', checkAuth, (req, res, next) => {
   PostsContollers.createPosts(req, res, next);
 });
 // 刪除全部posts
-router.delete('/posts', checkAuth, (req, res, next) => {
+router.delete('/posts', (req, res, next) => {
   /**
      * #swagger.tags = ['Posts - 貼文']
      * #swagger.description = '刪除全部貼文 API'
-     * #swagger.parameters['Authorization'] = {
-            in: 'header',
-            type: 'string',
-            required: true,
-            description: 'Bearer token'
-        }
      * #swagger.responses[200] = {
         description: '貼文資訊',
         schema: {
@@ -114,16 +108,10 @@ router.delete('/posts', checkAuth, (req, res, next) => {
   PostsContollers.deleteAllPosts(req, res, next);
 });
 // 刪除單一posts
-router.delete('/post/:id', checkAuth, (req, res, next) => {
+router.delete('/post/:id', (req, res, next) => {
   /**
      * #swagger.tags = ['Posts - 貼文']
      * #swagger.description = '刪除單筆貼文 API'
-     * #swagger.parameters['Authorization'] = {
-            in: 'header',
-            type: 'string',
-            required: true,
-            description: 'Bearer token'
-        }
      * #swagger.parameters['id'] = {
         in: 'path',
         type: 'string',
@@ -148,16 +136,10 @@ router.delete('/post/:id', checkAuth, (req, res, next) => {
   PostsContollers.deleteOnePosts(req, res, next);
 });
 // 修改單一post
-router.patch('/post/:id', checkAuth, (req, res, next) => {
+router.patch('/post/:id', (req, res, next) => {
   /**
      * #swagger.tags = ['Posts - 貼文']
      * #swagger.description = '修改單筆貼文 API'
-     * #swagger.parameters['Authorization'] = {
-            in: 'header',
-            type: 'string',
-            required: true,
-            description: 'Bearer token'
-        }
      * #swagger.parameters['id'] = {
         in: 'path',
         type: 'string',
