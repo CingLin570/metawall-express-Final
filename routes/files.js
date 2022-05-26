@@ -1,9 +1,10 @@
-var express = require('express');
-var router = express.Router();
-const { files, upload } = require('../controller/files');
+const express = require('express');
+const router = express.Router();
+const files= require('../controller/files');
+const upload = require('../service/image')
 const { checkAuth, generateSendJWT } = require('../service/auth');
 
-router.post('/', checkAuth, upload, (req, res, next) => {
+router.post('/file', checkAuth, upload, (req, res, next) => {
   /**
      * #swagger.tags = ['Files - 圖片上傳']
      * #swagger.parameters['Authorization'] = {
@@ -18,6 +19,13 @@ router.post('/', checkAuth, upload, (req, res, next) => {
             type: 'file',
             required: true,
             description: '資料格式'
+        }
+     * #swagger.parameters['name'] = {
+            in: 'formData',
+            name: 'name',
+            type: 'string',
+            required: false,
+            description: '限制圖片比例判斷'
         }
      * #swagger.description = '圖片上傳 API'
      * #swagger.responses[200] = {
