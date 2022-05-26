@@ -460,7 +460,15 @@
           "Posts - 貼文"
         ],
         "description": "刪除全部貼文 API",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token"
+          }
+        ],
         "responses": {
           "200": {
             "description": "貼文資訊",
@@ -604,6 +612,13 @@
             "required": true,
             "type": "string",
             "description": "貼文ID"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token"
           }
         ],
         "responses": {
@@ -665,6 +680,44 @@
             "required": true,
             "type": "string",
             "description": "貼文ID"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "type": "object",
+            "required": true,
+            "description": "資料格式",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "content": {
+                  "type": "string",
+                  "example": "今天天氣真好"
+                },
+                "image": {
+                  "type": "string",
+                  "example": "https://i.imgur.com/ktss1mN.jpg"
+                },
+                "user": {
+                  "type": "string",
+                  "example": "6277b20ad980d4df45db6447"
+                },
+                "likes": {
+                  "type": "number",
+                  "example": 123
+                }
+              },
+              "required": [
+                "content"
+              ]
+            }
           }
         ],
         "responses": {

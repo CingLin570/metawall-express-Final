@@ -94,6 +94,12 @@ router.delete('/posts', checkAuth, (req, res, next) => {
   /**
      * #swagger.tags = ['Posts - 貼文']
      * #swagger.description = '刪除全部貼文 API'
+     * #swagger.parameters['Authorization'] = {
+            in: 'header',
+            type: 'string',
+            required: true,
+            description: 'Bearer token'
+        }
      * #swagger.responses[200] = {
         description: '貼文資訊',
         schema: {
@@ -112,6 +118,12 @@ router.delete('/post/:id', checkAuth, (req, res, next) => {
   /**
      * #swagger.tags = ['Posts - 貼文']
      * #swagger.description = '刪除單筆貼文 API'
+     * #swagger.parameters['Authorization'] = {
+            in: 'header',
+            type: 'string',
+            required: true,
+            description: 'Bearer token'
+        }
      * #swagger.parameters['id'] = {
         in: 'path',
         type: 'string',
@@ -140,11 +152,29 @@ router.patch('/post/:id', checkAuth, (req, res, next) => {
   /**
      * #swagger.tags = ['Posts - 貼文']
      * #swagger.description = '修改單筆貼文 API'
+     * #swagger.parameters['Authorization'] = {
+            in: 'header',
+            type: 'string',
+            required: true,
+            description: 'Bearer token'
+        }
      * #swagger.parameters['id'] = {
         in: 'path',
         type: 'string',
         required: true,
         description: '貼文ID'
+        }
+     * #swagger.parameters['body'] = {
+        in: 'body',
+        type: 'object',
+        required: true,
+        description: '資料格式',
+        schema: {
+          $content: '今天天氣真好',
+          image: 'https://i.imgur.com/ktss1mN.jpg',
+          user: '6277b20ad980d4df45db6447',
+          likes: 123
+          }
         }
      * #swagger.responses[200] = {
       description: '貼文資訊',
