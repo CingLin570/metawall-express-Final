@@ -3,20 +3,7 @@ const sizeOf = require('image-size')
 const { errorHandle, successHandle } = require('../service/responseHandler');
 const appError = require('../service/appError');
 const handleErrorAsync = require('../service/handleErrorAsync');
-const multer = require('multer');
-
-const upload = multer({
-  limits: {
-    fileSize: 1 * 1024 * 1024,
-  },
-  fileFilter(req, file, cb) {
-    // 只接受三種圖片格式
-    if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-      cb(new Error('檔案格式錯誤，僅限上傳 jpg、jpeg 與 png 格式。'));
-    }
-    cb(null, true);
-  },
-}).single('image');
+const upload = require('../service/image')
 
 const files = {
   createImage: handleErrorAsync(async (req, res, next) => {
@@ -25,10 +12,12 @@ const files = {
       clientSecret: process.env.IMGUR_CLIENT_SECRET,
       refreshToken: process.env.IMGUR_REFRESH_TOKEN,
     });
+    // 加入名稱判斷是否為個人資訊圖片上傳
     const { name } = req.body
     if (!req.file) {
       return appError(400, '無選取檔案', next);
     }
+    // 判斷帶有名稱body才判斷圖片長寬
     if (name) {
       const dimensions = sizeOf(req.file.buffer);
       if(dimensions.width !== dimensions.height) {
@@ -45,7 +34,4 @@ const files = {
   }),
 };
 
-module.exports = {
-  files,
-  upload,
-};
+module.exports = files
