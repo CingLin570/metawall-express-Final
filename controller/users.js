@@ -63,15 +63,15 @@ const users = {
   login: handleErrorAsync(async (req, res, next) => {
     const { email, password } = req.body;
     if (!email || !password) {
-      return next(appError(400, '新增失敗，帳號密碼不可為空', next));
+      return next(appError(400, '登入失敗，帳號密碼不可為空', next));
     }
     const user = await User.findOne({ email }).select('+password');
     if (!user) {
-      return appError('新增失敗，帳號錯誤或尚未註冊', 400, next);
+      return appError('登入失敗，帳號錯誤或尚未註冊', 400, next);
     }
     const auth = await bcrypt.compare(password, user.password);
     if (!auth) {
-      return next(appError(400, '新增失敗，您的密碼不正確', next));
+      return next(appError(400, '登入失敗，您的密碼不正確', next));
     }
     generateSendJWT(user, 200, res);
   }),
