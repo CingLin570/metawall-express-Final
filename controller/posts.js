@@ -50,14 +50,13 @@ const posts = {
   }),
   updatePosts: handleErrorAsync(async (req, res, next) => {
     const id = req.params.id;
-    const { user, content, likes, image } = req.body;
+    const { content, likes, image } = req.body;
     if (content) {
       const post = await Post.findByIdAndUpdate(
         id,
         {
           $set: {
             content,
-            user,
             likes,
             image,
           },
