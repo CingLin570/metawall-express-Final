@@ -6,7 +6,6 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 
 dotenv.config({ path: './config.env' });
-const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const postRouter = require('./routes/posts');
 const filesRouter = require('./routes/files');
@@ -29,11 +28,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/posts', postRouter);
-app.use('/files', filesRouter);
+// 調整 RESTful api
+app.use('/', usersRouter);
+app.use('/', postRouter);
+app.use('/', filesRouter);
 app.use('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerFile));
 
 // 404 錯誤
