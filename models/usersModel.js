@@ -5,6 +5,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, '請輸入您的名字'],
       trim: true,
+      minlength: 2
     },
     email: {
       type: String,
