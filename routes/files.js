@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const files= require('../controller/files');
 const upload = require('../service/image')
-const { checkAuth, generateSendJWT } = require('../service/auth');
+const { checkAuth } = require('../service/auth');
 
 router.post('/file', checkAuth, upload, (req, res, next) => {
   /**

@@ -1,8 +1,8 @@
 const User = require('../models/usersModel');
 const bcrypt = require('bcryptjs'); // 密碼加密
 const validator = require('validator'); // 格式驗證
-const { checkAuth, generateSendJWT } = require('../service/auth');
-const { errorHandle, successHandle } = require('../service/responseHandler');
+const { generateSendJWT } = require('../service/auth');
+const { successHandle } = require('../service/responseHandler');
 const appError = require('../service/appError');
 const handleErrorAsync = require('../service/handleErrorAsync');
 

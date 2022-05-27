@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const UsersContollers = require('../controller/users');
-const { checkAuth, generateSendJWT } = require('../service/auth');
+const { checkAuth } = require('../service/auth');
 
 // 註冊
 router.post('/user/register', (req, res, next) => {

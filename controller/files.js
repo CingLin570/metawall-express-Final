@@ -1,9 +1,8 @@
 const { ImgurClient } = require('imgur');
 const sizeOf = require('image-size')
-const { errorHandle, successHandle } = require('../service/responseHandler');
+const { successHandle } = require('../service/responseHandler');
 const appError = require('../service/appError');
 const handleErrorAsync = require('../service/handleErrorAsync');
-const upload = require('../service/image')
 
 const files = {
   createImage: handleErrorAsync(async (req, res, next) => {

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const PostsContollers = require('../controller/posts');
-const { checkAuth, generateSendJWT } = require('../service/auth');
+const { checkAuth } = require('../service/auth');
 
 // 取得特定條件posts
 router.get('/posts', checkAuth, (req, res, next) => {

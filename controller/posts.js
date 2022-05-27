@@ -1,5 +1,5 @@
 const Post = require('../models/postsModel');
-const { errorHandle, successHandle } = require('../service/responseHandler');
+const { successHandle } = require('../service/responseHandler');
 const appError = require('../service/appError');
 const handleErrorAsync = require('../service/handleErrorAsync');
 
