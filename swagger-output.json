@@ -367,13 +367,102 @@
         }
       }
     },
+    "/user/getLikeList": {
+      "get": {
+        "tags": [
+          "Users - 使用者"
+        ],
+        "description": "取得個人按讚列表 API",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "此使用者按讚的貼文資訊",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "message": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string",
+                        "example": "6278da02631ef7910e7adc37"
+                      },
+                      "content": {
+                        "type": "string",
+                        "example": "今天天氣真好"
+                      },
+                      "image": {
+                        "type": "string",
+                        "example": ""
+                      },
+                      "user": {
+                        "type": "object",
+                        "properties": {
+                          "_id": {
+                            "type": "string",
+                            "example": "6277b20ad980d4df45db6447"
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "小明"
+                          },
+                          "photo": {
+                            "type": "string",
+                            "example": ""
+                          }
+                        }
+                      },
+                      "likes": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "example": "2022-05-11T01:41:18.681Z"
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
     "/posts": {
       "delete": {
         "tags": [
           "Posts - 貼文"
         ],
         "description": "刪除全部貼文 API",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token"
+          }
+        ],
         "responses": {
           "200": {
             "description": "貼文資訊",
@@ -478,8 +567,12 @@
                         }
                       },
                       "likes": {
-                        "type": "number",
-                        "example": 0
+                        "type": "array",
+                        "items": {}
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "example": "2022-05-11T01:41:18.681Z"
                       }
                     }
                   }
@@ -576,8 +669,12 @@
                         }
                       },
                       "likes": {
-                        "type": "number",
-                        "example": 0
+                        "type": "array",
+                        "items": {}
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "example": "2022-05-11T01:41:18.681Z"
                       }
                     }
                   }
@@ -606,6 +703,13 @@
             "description": "貼文ID"
           },
           {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token"
+          },
+          {
             "name": "body",
             "in": "body",
             "type": "object",
@@ -625,10 +729,6 @@
                 "user": {
                   "type": "string",
                   "example": "6277b20ad980d4df45db6447"
-                },
-                "likes": {
-                  "type": "number",
-                  "example": 123
                 }
               },
               "required": [
@@ -667,8 +767,8 @@
                       "example": "6277b20ad980d4df45db6447"
                     },
                     "likes": {
-                      "type": "number",
-                      "example": 0
+                      "type": "array",
+                      "items": {}
                     },
                     "createdAt": {
                       "type": "string",
@@ -696,6 +796,13 @@
             "required": true,
             "type": "string",
             "description": "貼文ID"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token"
           }
         ],
         "responses": {
@@ -728,8 +835,220 @@
                       "example": "6277b20ad980d4df45db6447"
                     },
                     "likes": {
-                      "type": "number",
-                      "example": 0
+                      "type": "array",
+                      "items": {}
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2022-05-11T01:41:18.681Z"
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/post/{id}/likes": {
+      "delete": {
+        "tags": [
+          "Posts - 貼文"
+        ],
+        "description": "刪除特定貼文按讚 API",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "貼文ID"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "貼文資訊",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "message": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "example": "627b143e88edb2f730f97feb"
+                    },
+                    "content": {
+                      "type": "string",
+                      "example": "今天天氣真好"
+                    },
+                    "image": {
+                      "type": "string",
+                      "example": "https://i.imgur.com/ktss1mN.jpg"
+                    },
+                    "user": {
+                      "type": "string",
+                      "example": "6277b20ad980d4df45db6447"
+                    },
+                    "likes": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2022-05-11T01:41:18.681Z"
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Posts - 貼文"
+        ],
+        "description": "新增特定貼文按讚 API",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "貼文ID"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "貼文資訊",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "message": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "example": "627b143e88edb2f730f97feb"
+                    },
+                    "content": {
+                      "type": "string",
+                      "example": "今天天氣真好"
+                    },
+                    "image": {
+                      "type": "string",
+                      "example": "https://i.imgur.com/ktss1mN.jpg"
+                    },
+                    "user": {
+                      "type": "string",
+                      "example": "6277b20ad980d4df45db6447"
+                    },
+                    "likes": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2022-05-11T01:41:18.681Z"
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/post/user/{id}": {
+      "get": {
+        "tags": [
+          "Posts - 貼文"
+        ],
+        "description": "取得個人所有貼文列表 API",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "使用者ID"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "貼文資訊",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "message": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "example": "627b143e88edb2f730f97feb"
+                    },
+                    "content": {
+                      "type": "string",
+                      "example": "今天天氣真好"
+                    },
+                    "image": {
+                      "type": "string",
+                      "example": "https://i.imgur.com/ktss1mN.jpg"
+                    },
+                    "user": {
+                      "type": "string",
+                      "example": "6277b20ad980d4df45db6447"
+                    },
+                    "likes": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
                     },
                     "createdAt": {
                       "type": "string",
@@ -817,8 +1136,10 @@
           "example": "https://...."
         },
         "likes": {
-          "type": "number",
-          "example": 123
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "user": {
           "type": "object",

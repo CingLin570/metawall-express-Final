@@ -19,7 +19,7 @@ const doc = {
     Posts: {
       $content: '範例資料',
       image: 'https://....',
-      likes: 123,
+      likes: ['6295818161225bb583801a84'],
       user: {
         $_id: '123456789',
         name: '小明',
