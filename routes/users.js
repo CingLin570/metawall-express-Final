@@ -168,5 +168,42 @@ router.patch('/user/updatePassword', checkAuth, UsersContollers.updatePassword);
     }
    * #swagger.end
   */
+// 取得個人按讚列表
+router.get('/user/getLikeList', checkAuth, UsersContollers.getLikeList);
+  /**
+   * #swagger.start
+   * #swagger.path = '/user/getLikeList'
+   * #swagger.method = 'get'
+   * #swagger.tags = ['Users - 使用者']
+   * #swagger.description = '取得個人按讚列表 API'
+   * #swagger.parameters['Authorization'] = {
+      in: 'header',
+      type: 'string',
+      required: true,
+      description: 'Bearer token'
+    }
+   * #swagger.responses[200] = {
+      description: '此使用者按讚的貼文資訊',
+      schema: {
+        status: 'success',
+        message: [{
+          _id: '6278da02631ef7910e7adc37',
+          content: '今天天氣真好',
+          image: '',
+          user: {
+            _id: '6277b20ad980d4df45db6447',
+            name: '小明',
+            photo: ''
+          },
+          likes: [
+            '6295818161225bb583801a84'
+          ],
+          createdAt: '2022-05-11T01:41:18.681Z'
+        }]
+      }
+    }
+  }
+   * #swagger.end
+  */
 
 module.exports = router;

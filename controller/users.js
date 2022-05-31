@@ -1,4 +1,5 @@
 const User = require('../models/usersModel');
+const Post = require('../models/postsModel');
 const bcrypt = require('bcryptjs'); // 密碼加密
 const validator = require('validator'); // 格式驗證
 const { generateSendJWT } = require('../service/auth');
@@ -7,6 +8,18 @@ const appError = require('../service/appError');
 const handleErrorAsync = require('../service/handleErrorAsync');
 
 const users = {
+  getOwnProfile: handleErrorAsync(async (req, res, next) => {
+    successHandle(res, req.user);
+  }),
+  getLikeList: handleErrorAsync(async (req, res, next) => {
+    const likeList = await Post.find({
+      likes: { $in: [req.user.id] }
+    }).populate({
+      path:"user",
+      select:"name _id"
+    }).sort('-createdAt');
+    successHandle(res, likeList);
+  }),
   register: handleErrorAsync(async (req, res, next) => {
     let { email, password, confirmPassword, name } = req.body;
     // 內容不可為空
@@ -74,9 +87,6 @@ const users = {
       return next(appError(400, '登入失敗，您的密碼不正確', next));
     }
     generateSendJWT(user, 200, res);
-  }),
-  getOwnProfile: handleErrorAsync(async (req, res, next) => {
-    successHandle(res, req.user);
   }),
   updateProfile: handleErrorAsync(async (req, res, next) => {
     const { name, sex, photo } = req.body;
