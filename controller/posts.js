@@ -4,7 +4,7 @@ const appError = require('../service/appError');
 const handleErrorAsync = require('../service/handleErrorAsync');
 
 const posts = {
-  async getPosts(req, res) {
+  getPosts: handleErrorAsync(async (req, res, next) => {
     const timeSort = req.query.timeSort == 'asc' ? 'createdAt' : '-createdAt';
     const q =
       req.query.q !== undefined ? { content: new RegExp(req.query.q) } : {};
@@ -15,8 +15,24 @@ const posts = {
       })
       .sort(timeSort);
     successHandle(res, post);
-  },
-  createPosts: handleErrorAsync(async (req, res, next) => {
+  }),
+  getOwnPosts: handleErrorAsync(async (req, res, next) => {
+    const user = req.params.id;
+    const timeSort = req.query.timeSort == 'asc' ? 'createdAt' : '-createdAt';
+    const q =
+      req.query.q !== undefined ? { content: new RegExp(req.query.q) } : {};
+      const data = {
+        user,
+        q
+      }
+    const posts = await Post.find(data).populate({
+      path: 'user',
+      select: 'name photo ',
+    })
+    .sort(timeSort);
+    successHandle(res, posts);
+  }),
+  createPost: handleErrorAsync(async (req, res, next) => {
     const user = req.user.id;
     const { content, image } = req.body;
       if (content) {
@@ -30,6 +46,20 @@ const posts = {
         appError(400, '新增失敗，內容必須填寫', next);
       }
   }),
+  createLike: handleErrorAsync(async (req, res, next) => {
+    const id = req.params.id;
+    const post = await Post.findByIdAndUpdate(
+        id,
+        { $addToSet: { likes: req.user.id } },
+        { new: true }
+      );
+    if(post !== null) {
+      // post = null 查不到貼文id
+      successHandle(res, post);
+    } else {
+      appError(400, '新增失敗，無此貼文ID或格式填寫錯誤', next);
+    }
+  }),
   deleteAllPosts: handleErrorAsync(async (req, res, next) => {
     if (req.originalUrl !== '/posts/') {
       const post = await Post.deleteMany({});
@@ -38,7 +68,7 @@ const posts = {
       appError(404, '刪除失敗，無此網站路由', next);
     }
   }),
-  deleteOnePosts: handleErrorAsync(async (req, res, next) => {
+  deleteOnePost: handleErrorAsync(async (req, res, next) => {
     const id = req.params.id;
     const post = await Post.findByIdAndDelete(id);
     if (post !== null) {
@@ -48,16 +78,29 @@ const posts = {
       appError(400, '刪除失敗，無此貼文ID', next);
     }
   }),
-  updatePosts: handleErrorAsync(async (req, res, next) => {
+  deleteLike: handleErrorAsync(async (req, res, next) => {
     const id = req.params.id;
-    const { content, likes, image } = req.body;
+    const post = await Post.findByIdAndUpdate(
+        id,
+        { $pull: { likes: req.user.id } },
+        { new: true }
+      );
+    if(post !== null) {
+      // post = null 查不到貼文id
+      successHandle(res, post);
+    } else {
+      appError(400, '刪除失敗，無此貼文ID或格式填寫錯誤', next);
+    }
+  }),
+  updatePost: handleErrorAsync(async (req, res, next) => {
+    const id = req.params.id;
+    const { content, image } = req.body;
     if (content) {
       const post = await Post.findByIdAndUpdate(
         id,
         {
           $set: {
             content,
-            likes,
             image,
           },
         },
@@ -75,7 +118,7 @@ const posts = {
     } else {
       appError(400, '更新失敗，未輸入必填貼文內容', next);
     }
-  }),
+  })
 };
 
 module.exports = posts;
