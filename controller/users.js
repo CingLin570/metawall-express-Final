@@ -141,6 +141,78 @@ const users = {
     });
     generateSendJWT(user, 200, res);
   }),
+  createFollow: handleErrorAsync(async (req, res, next) => {
+    const user = req.user.id;
+    const followUser = req.params.id
+    if(followUser === user) {
+      return next(appError(400, '新增失敗，您不能追蹤自己', next));
+    }
+    const findUser = await User.findById(followUser);
+    if(!findUser) {
+      return appError(400, '新增失敗，查無此使用者ID', next);
+    }
+    await User.updateOne(
+      {
+        _id: user,
+        'following.user': { $ne: followUser }
+      },
+      {
+        $addToSet: { following: { user: followUser } }
+      }
+    );
+    await User.updateOne(
+      {
+        _id: followUser,
+        'followers.user': { $ne: user }
+      },
+      {
+        $addToSet: { followers: { user: user } }
+      }
+    );
+    successHandle(res, '新增追蹤成功');
+  }),
+  deleteFollow: handleErrorAsync(async (req, res, next) => {
+    const user = req.user.id;
+    const followUser = req.params.id
+    if(followUser === user) {
+      return next(appError(400, '刪除失敗，您不能取消追蹤自己', next));
+    }
+    const findUser = await User.findById(followUser);
+    if(!findUser) {
+      return appError(400, '刪除失敗，查無此使用者ID', next);
+    }
+    await User.updateOne(
+      {
+        _id: user,
+        'following.user': { $eq: followUser }
+      },
+      {
+        $pull: { following: { user: followUser } }
+      }
+    );
+    await User.updateOne(
+      {
+        _id: followUser,
+        'followers.user': { $eq: user }
+      },
+      {
+        $pull: { followers: { user: user } }
+      }
+    );
+    successHandle(res, '取消追蹤成功');
+  }),
+  getFollowing: handleErrorAsync(async (req, res, next) => {
+    const user = await User.findById(req.user.id)
+    .populate({
+      path: 'following',
+      populate: { 
+          path: 'user',
+          select: 'name photo'
+      },
+      options: { sort: '-createdAt' }
+    });
+    successHandle(res, user);
+  })
 };
 
 module.exports = users;

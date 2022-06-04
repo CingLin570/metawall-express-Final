@@ -1,10 +1,28 @@
 const express = require('express');
 const router = express.Router();
-const UsersContollers = require('../controller/users');
+const UsersControllers = require('../controller/users');
 const { checkAuth } = require('../service/auth');
 
 // 註冊
-router.post('/user/register', UsersContollers.register);
+router.post('/user/register', UsersControllers.register);
+// 登入
+router.post('/user/login', UsersControllers.login);
+// 取得個人資訊
+router.get('/user/profile', checkAuth, UsersControllers.getOwnProfile);
+// 修改個人資訊
+router.patch('/user/profile', checkAuth, UsersControllers.updateProfile);
+// 修改密碼
+router.patch('/user/updatePassword', checkAuth, UsersControllers.updatePassword);
+// 取得個人按讚列表
+router.get('/user/getLikeList', checkAuth, UsersControllers.getLikeList);
+// 追蹤使用者
+router.post('/user/:id/follow', checkAuth, UsersControllers.createFollow);
+// 取消追蹤使用者
+router.delete('/user/:id/follow', checkAuth, UsersControllers.deleteFollow);
+// 取得追蹤使用者
+router.get('/user/following', checkAuth, UsersControllers.getFollowing);
+
+module.exports = router;
   /**
    * #swagger.start
    * #swagger.path = '/user/register'
@@ -41,8 +59,6 @@ router.post('/user/register', UsersContollers.register);
    * #swagger.end
  */
 
-// 登入
-router.post('/user/login', UsersContollers.login);
   /**
    * #swagger.start
    * #swagger.path = '/user/login'
@@ -73,8 +89,6 @@ router.post('/user/login', UsersContollers.login);
    * #swagger.end
  */
 
-// 取得個人資訊
-router.get('/user/profile', checkAuth, UsersContollers.getOwnProfile);
   /**
    * #swagger.start
    * #swagger.path = '/user/profile'
@@ -102,8 +116,6 @@ router.get('/user/profile', checkAuth, UsersContollers.getOwnProfile);
    * #swagger.end
  */
 
-// 修改個人資訊
-router.patch('/user/profile', checkAuth, UsersContollers.updateProfile);
   /**
    * #swagger.start
    * #swagger.path = '/user/profile'
@@ -131,8 +143,6 @@ router.patch('/user/profile', checkAuth, UsersContollers.updateProfile);
    * #swagger.end
  */
 
-// 修改密碼
-router.patch('/user/updatePassword', checkAuth, UsersContollers.updatePassword);
   /**
    * #swagger.start
    * #swagger.path = '/user/updatePassword'
@@ -168,8 +178,7 @@ router.patch('/user/updatePassword', checkAuth, UsersContollers.updatePassword);
     }
    * #swagger.end
   */
-// 取得個人按讚列表
-router.get('/user/getLikeList', checkAuth, UsersContollers.getLikeList);
+
   /**
    * #swagger.start
    * #swagger.path = '/user/getLikeList'
@@ -206,4 +215,98 @@ router.get('/user/getLikeList', checkAuth, UsersContollers.getLikeList);
    * #swagger.end
   */
 
-module.exports = router;
+  /**
+   * #swagger.start
+   * #swagger.path = '/user/{id}/follow'
+   * #swagger.method = 'post'
+   * #swagger.tags = ['Users - 使用者']
+   * #swagger.description = '追蹤使用者 API'
+   * #swagger.parameters['Authorization'] = {
+      in: 'header',
+      type: 'string',
+      required: true,
+      description: 'Bearer token'
+    }
+   * #swagger.parameters['id'] = {
+      in: 'path',
+      type: 'string',
+      required: true,
+      description: '追蹤使用者ID'
+    }
+   * #swagger.responses[200] = {
+      description: '此使用者按讚的貼文資訊',
+      schema: {
+        status: 'success',
+        message: '新增追蹤成功'
+      }
+    }
+  }
+   * #swagger.end
+  */
+
+  /**
+   * #swagger.start
+   * #swagger.path = '/user/{id}/follow'
+   * #swagger.method = 'delete'
+   * #swagger.tags = ['Users - 使用者']
+   * #swagger.description = '取消追蹤使用者 API'
+   * #swagger.parameters['Authorization'] = {
+      in: 'header',
+      type: 'string',
+      required: true,
+      description: 'Bearer token'
+    }
+   * #swagger.parameters['id'] = {
+      in: 'path',
+      type: 'string',
+      required: true,
+      description: '追蹤使用者ID'
+    }
+   * #swagger.responses[200] = {
+      description: '此使用者按讚的貼文資訊',
+      schema: {
+        status: 'success',
+        message: '取消追蹤成功'
+      }
+    }
+  }
+   * #swagger.end
+  */
+
+  /**
+   * #swagger.start
+   * #swagger.path = '/user/following'
+   * #swagger.method = 'get'
+   * #swagger.tags = ['Users - 使用者']
+   * #swagger.description = '取得追蹤使用者 API'
+   * #swagger.parameters['Authorization'] = {
+      in: 'header',
+      type: 'string',
+      required: true,
+      description: 'Bearer token'
+    }
+   * #swagger.responses[200] = {
+      description: '此使用者按讚的貼文資訊',
+      schema: {
+        status: 'success',
+        message: [{
+          _id: '6278da02631ef7910e7adc37',
+          name: '小王',
+          photo: '',
+          sex: '',
+          followers: [{}],
+          following: [{
+            user: {
+              _id: '6295d56b901f7c53926520ec',
+              name: '小明',
+              photo: '',
+            },
+            _id: '629966494b2dad46121e9da8',
+            createdAt: '2022-05-11T01:41:18.681Z'
+          }]
+        }]
+      }
+    }
+  }
+   * #swagger.end
+  */
