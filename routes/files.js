@@ -4,7 +4,10 @@ const files= require('../controller/files');
 const upload = require('../service/image')
 const { checkAuth } = require('../service/auth');
 
+// 圖片上傳
 router.post('/file', checkAuth, upload, files.createImage);
+
+module.exports = router;
   /**
    * #swagger.start
    * #swagger.path = '/file'
@@ -43,5 +46,3 @@ router.post('/file', checkAuth, upload, files.createImage);
   }
   * #swagger.end
   */
-
-module.exports = router;
