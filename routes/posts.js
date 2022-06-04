@@ -1,16 +1,36 @@
 const express = require('express');
 const router = express.Router();
-const PostsContollers = require('../controller/posts');
+const PostsControllers = require('../controller/posts');
 const { checkAuth } = require('../service/auth');
 
 // 取得特定條件貼文
-router.get('/posts', checkAuth, PostsContollers.getPosts);
+router.get('/posts', checkAuth, PostsControllers.getPosts);
+// 取得單筆貼文
+router.get('/post/:id', checkAuth, PostsControllers.getSinglePost);
+// 取得個人所有貼文列表
+router.get('/post/user/:id', checkAuth, PostsControllers.getOwnPosts);
+// 新增單筆貼文
+router.post('/post', checkAuth, PostsControllers.createPost);
+// 刪除全部貼文
+router.delete('/posts', checkAuth, PostsControllers.deleteAllPosts);
+// 刪除單筆貼文
+router.delete('/post/:id', checkAuth, PostsControllers.deleteOnePost);
+// 修改單筆貼文
+router.patch('/post/:id', checkAuth, PostsControllers.updatePost);
+// 新增特定貼文按讚
+router.post('/post/:id/likes', checkAuth, PostsControllers.createLike);
+// 刪除特定貼文按讚
+router.delete('/post/:id/likes', checkAuth, PostsControllers.deleteLike);
+// 新增留言
+router.post('/post/:id/comment', checkAuth, PostsControllers.createComment);
+
+module.exports = router;
   /**
    * #swagger.start
    * #swagger.path = '/posts'
    * #swagger.method = 'get'
    * #swagger.tags = ['Posts - 貼文']
-   * #swagger.description = '取得全部貼文 API'
+   * #swagger.description = '取得特定條件貼文 API'
    * #swagger.parameters['Authorization'] = {
       in: 'header',
       type: 'string',
@@ -51,8 +71,77 @@ router.get('/posts', checkAuth, PostsContollers.getPosts);
   * #swagger.end
   */
 
-// 新增單一貼文
-router.post('/post', checkAuth, PostsContollers.createPost);
+  /**
+   * #swagger.start
+   * #swagger.path = '/post/{id}'
+   * #swagger.method = 'get'
+   * #swagger.tags = ['Posts - 貼文']
+   * #swagger.description = '取得單筆貼文 API'
+   * #swagger.parameters['Authorization'] = {
+      in: 'header',
+      type: 'string',
+      required: true,
+      description: 'Bearer token'
+    }
+   * #swagger.parameters['id'] = {
+      in: 'path',
+      type: 'string',
+      required: true,
+      description: '貼文ID'
+    }
+   * #swagger.responses[200] = {
+      description: '貼文資訊',
+      schema: {
+        status: 'success',
+        message: {
+        _id: '627b143e88edb2f730f97feb',
+        comment: '今天天氣真好',
+        user: '6295d56b901f7c53926520ec',
+        post: '6295d5f9901f7c53926520f8',
+        createdAt: '2022-05-11T01:41:18.681Z'
+      }
+    }
+  }
+  * #swagger.end
+  */
+
+  /**
+   * #swagger.start
+   * #swagger.path = '/post/user/{id}'
+   * #swagger.method = 'get'
+   * #swagger.tags = ['Posts - 貼文']
+   * #swagger.description = '取得個人所有貼文列表 API'
+   * #swagger.parameters['Authorization'] = {
+      in: 'header',
+      type: 'string',
+      required: true,
+      description: 'Bearer token'
+    }
+   * #swagger.parameters['id'] = {
+      in: 'path',
+      type: 'string',
+      required: true,
+      description: '使用者ID'
+    }
+   * #swagger.responses[200] = {
+      description: '貼文資訊',
+      schema: {
+        status: 'success',
+        message: {
+        _id: '627b143e88edb2f730f97feb',
+        content: '今天天氣真好',
+        image: 'https://i.imgur.com/ktss1mN.jpg',
+        user: '6277b20ad980d4df45db6447',
+        likes: [
+          '6295818161225bb583801a84'
+        ],
+        createdAt: '2022-05-11T01:41:18.681Z'
+      }
+    }
+  }
+  * #swagger.end
+  */
+
   /**
    * #swagger.start
    * #swagger.path = '/post'
@@ -97,8 +186,6 @@ router.post('/post', checkAuth, PostsContollers.createPost);
   * #swagger.end
   */
 
-// 刪除全部貼文
-router.delete('/posts', checkAuth, PostsContollers.deleteAllPosts);
   /**
    * #swagger.start
    * #swagger.path = '/posts'
@@ -124,8 +211,6 @@ router.delete('/posts', checkAuth, PostsContollers.deleteAllPosts);
   * #swagger.end
   */
 
-// 刪除單一貼文
-router.delete('/post/:id', checkAuth, PostsContollers.deleteOnePost);
   /**
    * #swagger.start
    * #swagger.path = '/post/{id}'
@@ -161,8 +246,6 @@ router.delete('/post/:id', checkAuth, PostsContollers.deleteOnePost);
   * #swagger.end
   */
 
-// 修改單一貼文
-router.patch('/post/:id', checkAuth, PostsContollers.updatePost);
   /**
    * #swagger.start
    * #swagger.path = '/post/{id}'
@@ -208,8 +291,7 @@ router.patch('/post/:id', checkAuth, PostsContollers.updatePost);
   }
   * #swagger.end
   */
-// 新增特定貼文按讚
-router.post('/post/:id/likes', checkAuth, PostsContollers.createLike);
+
   /**
    * #swagger.start
    * #swagger.path = '/post/{id}/likes'
@@ -246,8 +328,7 @@ router.post('/post/:id/likes', checkAuth, PostsContollers.createLike);
   }
   * #swagger.end
   */
-// 刪除特定貼文按讚
-router.delete('/post/:id/likes', checkAuth, PostsContollers.deleteLike);
+
   /**
    * #swagger.start
    * #swagger.path = '/post/{id}/likes'
@@ -282,14 +363,13 @@ router.delete('/post/:id/likes', checkAuth, PostsContollers.deleteLike);
   }
   * #swagger.end
   */
-//取得個人所有貼文列表
-router.get('/post/user/:id', checkAuth, PostsContollers.getOwnPosts);
+
   /**
    * #swagger.start
-   * #swagger.path = '/post/user/{id}'
-   * #swagger.method = 'get'
+   * #swagger.path = '/post/{id}/comment'
+   * #swagger.method = 'post'
    * #swagger.tags = ['Posts - 貼文']
-   * #swagger.description = '取得個人所有貼文列表 API'
+   * #swagger.description = '新增留言 API'
    * #swagger.parameters['Authorization'] = {
       in: 'header',
       type: 'string',
@@ -300,7 +380,16 @@ router.get('/post/user/:id', checkAuth, PostsContollers.getOwnPosts);
       in: 'path',
       type: 'string',
       required: true,
-      description: '使用者ID'
+      description: '貼文ID'
+    }
+   * #swagger.parameters['body'] = {
+      in: 'body',
+      type: 'object',
+      required: true,
+      description: '資料格式',
+      schema: {
+        $comment: '今天天氣真好',
+      }
     }
    * #swagger.responses[200] = {
       description: '貼文資訊',
@@ -308,12 +397,9 @@ router.get('/post/user/:id', checkAuth, PostsContollers.getOwnPosts);
         status: 'success',
         message: {
         _id: '627b143e88edb2f730f97feb',
-        content: '今天天氣真好',
-        image: 'https://i.imgur.com/ktss1mN.jpg',
-        user: '6277b20ad980d4df45db6447',
-        likes: [
-          '6295818161225bb583801a84'
-        ],
+        comment: '今天天氣真好',
+        user: '6295d56b901f7c53926520ec',
+        post: '6295d5f9901f7c53926520f8',
         createdAt: '2022-05-11T01:41:18.681Z'
       }
     }
@@ -321,4 +407,3 @@ router.get('/post/user/:id', checkAuth, PostsContollers.getOwnPosts);
   * #swagger.end
   */
 
-module.exports = router;

@@ -1,4 +1,5 @@
 const Post = require('../models/postsModel');
+const Comment = require('../models/commentsModel');
 const { successHandle } = require('../service/responseHandler');
 const appError = require('../service/appError');
 const handleErrorAsync = require('../service/handleErrorAsync');
@@ -10,10 +11,29 @@ const posts = {
       req.query.q !== undefined ? { content: new RegExp(req.query.q) } : {};
     const post = await Post.find(q)
       .populate({
-        path: 'user',
-        select: 'name photo ',
+        path: 'user', // 關聯到user model
+        select: 'name photo ', // 只取出關聯user的特定欄位
+      }).populate({
+        path: 'comments',
+        options: { sort: '-createdAt' }
       })
       .sort(timeSort);
+    successHandle(res, post);
+  }),
+  getSinglePost: handleErrorAsync(async (req, res, next) => {
+    const id = req.params.id;
+    const post = await Post.findById(id)
+    .populate({
+      path: 'user', // 關聯到user model
+      select: 'name photo ', // 只取出關聯user的特定欄位
+    }).populate({
+      path: 'comments',
+      options: { sort: '-createdAt' }
+    })
+    // 查不到貼文id
+    if(!post) {
+      return appError(400, '查詢失敗，無此貼文ID或格式填寫錯誤', next);
+    }
     successHandle(res, post);
   }),
   getOwnPosts: handleErrorAsync(async (req, res, next) => {
@@ -28,6 +48,9 @@ const posts = {
     const posts = await Post.find(data).populate({
       path: 'user',
       select: 'name photo ',
+    }).populate({
+      path: 'comments',
+      select: 'comment user'
     })
     .sort(timeSort);
     successHandle(res, posts);
@@ -46,20 +69,6 @@ const posts = {
         appError(400, '新增失敗，內容必須填寫', next);
       }
   }),
-  createLike: handleErrorAsync(async (req, res, next) => {
-    const id = req.params.id;
-    const post = await Post.findByIdAndUpdate(
-        id,
-        { $addToSet: { likes: req.user.id } },
-        { new: true }
-      );
-    if(post !== null) {
-      // post = null 查不到貼文id
-      successHandle(res, post);
-    } else {
-      appError(400, '新增失敗，無此貼文ID或格式填寫錯誤', next);
-    }
-  }),
   deleteAllPosts: handleErrorAsync(async (req, res, next) => {
     if (req.originalUrl !== '/posts/') {
       const post = await Post.deleteMany({});
@@ -71,26 +80,11 @@ const posts = {
   deleteOnePost: handleErrorAsync(async (req, res, next) => {
     const id = req.params.id;
     const post = await Post.findByIdAndDelete(id);
-    if (post !== null) {
-      // post = null 查不到貼文id
-      successHandle(res, post);
-    } else {
-      appError(400, '刪除失敗，無此貼文ID', next);
+    // 查不到貼文id
+    if (!post) {
+      return appError(400, '刪除失敗，無此貼文ID', next);
     }
-  }),
-  deleteLike: handleErrorAsync(async (req, res, next) => {
-    const id = req.params.id;
-    const post = await Post.findByIdAndUpdate(
-        id,
-        { $pull: { likes: req.user.id } },
-        { new: true }
-      );
-    if(post !== null) {
-      // post = null 查不到貼文id
-      successHandle(res, post);
-    } else {
-      appError(400, '刪除失敗，無此貼文ID或格式填寫錯誤', next);
-    }
+    successHandle(res, post);
   }),
   updatePost: handleErrorAsync(async (req, res, next) => {
     const id = req.params.id;
@@ -109,15 +103,58 @@ const posts = {
           runValidators: true,
         }
       );
-      if (post !== null) {
-        // post = null 查不到貼文id
-        successHandle(res, post);
-      } else {
-        appError(400, '更新失敗，無此貼文ID或格式填寫錯誤', next);
+      // 查不到貼文id
+      if (!post) {
+        return appError(400, '更新失敗，無此貼文ID或格式填寫錯誤', next);
       }
+      successHandle(res, post);
     } else {
       appError(400, '更新失敗，未輸入必填貼文內容', next);
     }
+  }),
+  createLike: handleErrorAsync(async (req, res, next) => {
+    const id = req.params.id;
+    const post = await Post.findByIdAndUpdate(
+        id,
+        { $addToSet: { likes: req.user.id } },
+        { new: true }
+      );
+    // 查不到貼文id
+    if(!post) {
+      return appError(400, '新增失敗，無此貼文ID或格式填寫錯誤', next);
+    }
+    successHandle(res, post);
+  }),
+  deleteLike: handleErrorAsync(async (req, res, next) => {
+    const id = req.params.id;
+    const post = await Post.findByIdAndUpdate(
+        id,
+        { $pull: { likes: req.user.id } },
+        { new: true }
+      );
+    // 查不到貼文id
+    if(!post) {
+      return appError(400, '刪除失敗，無此貼文ID或格式填寫錯誤', next);
+    }
+    successHandle(res, post);
+  }),
+  createComment: handleErrorAsync(async (req, res, next) => {
+    const user = req.user.id;
+    const post = req.params.id;
+    const {comment} = req.body;
+    if(!comment) {
+      return appError(400, '新增失敗，未輸入必填留言內容', next);
+    }
+    const findPost = await Post.findById(post);
+    if(!findPost) {
+      return appError(400, '新增失敗，查無此貼文ID', next);
+    }
+    const newComment = await Comment.create({
+      post,
+      user,
+      comment
+    });
+    successHandle(res, newComment);
   })
 };
 
