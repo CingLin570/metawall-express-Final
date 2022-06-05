@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const PostsContollers = require('../controller/posts');
+const PostsControllers = require('../controller/posts');
 const { checkAuth } = require('../service/auth');
 
 // 取得特定條件posts
-router.get('/posts', checkAuth, PostsContollers.getPosts);
+router.get('/posts', checkAuth, PostsControllers.getPosts);
   /**
    * #swagger.start
    * #swagger.path = '/posts'
@@ -51,7 +51,7 @@ router.get('/posts', checkAuth, PostsContollers.getPosts);
   */
 
 // 新增單一post
-router.post('/post', checkAuth, PostsContollers.createPosts);
+router.post('/post', checkAuth, PostsControllers.createPosts);
   /**
    * #swagger.start
    * #swagger.path = '/post'
@@ -96,7 +96,7 @@ router.post('/post', checkAuth, PostsContollers.createPosts);
   */
 
 // 刪除全部posts
-router.delete('/posts', PostsContollers.deleteAllPosts);
+router.delete('/posts', checkAuth, PostsControllers.deleteAllPosts);
   /**
    * #swagger.start
    * #swagger.path = '/posts'
@@ -117,7 +117,7 @@ router.delete('/posts', PostsContollers.deleteAllPosts);
   */
 
 // 刪除單一posts
-router.delete('/post/:id', PostsContollers.deleteOnePosts);
+router.delete('/post/:id', checkAuth, PostsControllers.deleteOnePosts);
   /**
    * #swagger.start
    * #swagger.path = '/post/{id}'
@@ -148,7 +148,7 @@ router.delete('/post/:id', PostsContollers.deleteOnePosts);
   */
 
 // 修改單一post
-router.patch('/post/:id', PostsContollers.updatePosts);
+router.patch('/post/:id', checkAuth, PostsControllers.updatePosts);
   /**
    * #swagger.start
    * #swagger.path = '/post/{id}'

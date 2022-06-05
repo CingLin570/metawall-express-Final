@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const UsersContollers = require('../controller/users');
+const UsersControllers = require('../controller/users');
 const { checkAuth } = require('../service/auth');
 
 // 註冊
-router.post('/user/register', UsersContollers.register);
+router.post('/user/register', UsersControllers.register);
   /**
    * #swagger.start
    * #swagger.path = '/user/register'
@@ -42,7 +42,7 @@ router.post('/user/register', UsersContollers.register);
  */
 
 // 登入
-router.post('/user/login', UsersContollers.login);
+router.post('/user/login', UsersControllers.login);
   /**
    * #swagger.start
    * #swagger.path = '/user/login'
@@ -74,7 +74,7 @@ router.post('/user/login', UsersContollers.login);
  */
 
 // 取得個人資訊
-router.get('/user/profile', checkAuth, UsersContollers.getOwnProfile);
+router.get('/user/profile', checkAuth, UsersControllers.getOwnProfile);
   /**
    * #swagger.start
    * #swagger.path = '/user/profile'
@@ -103,7 +103,7 @@ router.get('/user/profile', checkAuth, UsersContollers.getOwnProfile);
  */
 
 // 修改個人資訊
-router.patch('/user/profile', checkAuth, UsersContollers.updateProfile);
+router.patch('/user/profile', checkAuth, UsersControllers.updateProfile);
   /**
    * #swagger.start
    * #swagger.path = '/user/profile'
@@ -132,7 +132,7 @@ router.patch('/user/profile', checkAuth, UsersContollers.updateProfile);
  */
 
 // 修改密碼
-router.patch('/user/updatePassword', checkAuth, UsersContollers.updatePassword);
+router.patch('/user/updatePassword', checkAuth, UsersControllers.updatePassword);
   /**
    * #swagger.start
    * #swagger.path = '/user/updatePassword'
