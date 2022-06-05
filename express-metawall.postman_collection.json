@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "6d603021-521d-4cad-b5a5-7865f1c56185",
+		"_postman_id": "f3f8a009-a45b-4d61-8331-935688493bed",
 		"name": "express-metawall",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "14555858"
@@ -196,13 +196,7 @@
 					"name": "註冊",
 					"request": {
 						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGQ5NTk5MjY2NzM0YTMzMGM4ZjcxNiIsImlhdCI6MTY1MzU2NTQ3MCwiZXhwIjoxNjU0MTcwMjcwfQ.q7HHX6fhdBs-Kbimtak3QkjIX93viXbUVIucqVBwPj8",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"name\": \"小風\",\r\n    \"email\": \"aaa1112@gmail.com\",\r\n    \"password\": \"aaAA1234\",\r\n    \"confirmPassword\": \"aaAA1234\"\r\n}",
