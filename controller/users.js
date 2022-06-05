@@ -11,7 +11,7 @@ const users = {
     let { email, password, confirmPassword, name } = req.body;
     // 內容不可為空
     if (!email || !password || !confirmPassword || !name) {
-      return next(appError('400', '欄位未填寫正確！', next));
+      return appError(400, '欄位未填寫正確！', next);
     }
     const errorMessageArr = [];
     // 密碼是否正確
@@ -42,12 +42,12 @@ const users = {
     }
     if (errorMessageArr.length > 0) {
       errorMessage = errorMessageArr.join(', ');
-      return next(appError(400, errorMessage, next));
+      return appError(400, errorMessage, next);
     }
     // 查詢是否存在信箱
     const findUserByMail = await User.findOne({ email });
     if (findUserByMail) {
-      return appError('email 已註冊', 400, next);
+      return appError(400, 'email 已註冊', next);
     }
     // 加密密碼
     password = await bcrypt.hash(req.body.password, 12);
@@ -63,15 +63,15 @@ const users = {
   login: handleErrorAsync(async (req, res, next) => {
     const { email, password } = req.body;
     if (!email || !password) {
-      return next(appError(400, '登入失敗，帳號密碼不可為空', next));
+      return appError(400, '登入失敗，帳號密碼不可為空', next);
     }
     const user = await User.findOne({ email }).select('+password');
     if (!user) {
-      return appError('登入失敗，帳號錯誤或尚未註冊', 400, next);
+      return appError(400, '登入失敗，帳號錯誤或尚未註冊', next);
     }
     const auth = await bcrypt.compare(password, user.password);
     if (!auth) {
-      return next(appError(400, '登入失敗，您的密碼不正確', next));
+      return appError(400, '登入失敗，您的密碼不正確', next);
     }
     generateSendJWT(user, 200, res);
   }),
@@ -81,7 +81,7 @@ const users = {
   updateProfile: handleErrorAsync(async (req, res, next) => {
     const { name, sex, photo } = req.body;
     if (!name) {
-      next(appError(400, '更新失敗，姓名必填欄位未填寫', next));
+      return appError(400, '更新失敗，姓名必填欄位未填寫', next);
     }
     const updateUser = await User.findByIdAndUpdate(
       req.user.id,
@@ -101,6 +101,10 @@ const users = {
   }),
   updatePassword: handleErrorAsync(async (req, res, next) => {
     const { password, confirmPassword } = req.body;
+    // 內容不可為空
+    if (!password || !confirmPassword) {
+      return appError(400, '欄位未填寫正確！', next);
+    }
     const errorMessageArr = [];
     // 密碼是否正確
     if (password !== confirmPassword) {
@@ -122,7 +126,7 @@ const users = {
     }
     if (errorMessageArr.length > 0) {
       errorMessage = errorMessageArr.join(', ');
-      return next(appError(400, errorMessage, next));
+      return appError(400, errorMessage, next);
     }
     newPassword = await bcrypt.hash(password, 12);
 
