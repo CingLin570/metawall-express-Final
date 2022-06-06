@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "fb7b5ea4-ae01-4cea-8c36-f9da83aa2636",
+		"_postman_id": "f3f8a009-a45b-4d61-8331-935688493bed",
 		"name": "express-metawall",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "14555858"
@@ -19,7 +19,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGQ5NTk5MjY2NzM0YTMzMGM4ZjcxNiIsImlhdCI6MTY1MzU2NTQ3MCwiZXhwIjoxNjU0MTcwMjcwfQ.q7HHX6fhdBs-Kbimtak3QkjIX93viXbUVIucqVBwPj8",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGY4NTU5YmY4OWRkZjJkYTRjZTU4NiIsImlhdCI6MTY1NDM5OTgzNiwiZXhwIjoxNjU1MDA0NjM2fQ.Z5E8Ys5VOny-GMzlNNLvR6Bf3GDqpFG6_4MQ6RDg6dU",
 								"type": "text"
 							},
 							{
@@ -66,7 +66,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGQ5NTk5MjY2NzM0YTMzMGM4ZjcxNiIsImlhdCI6MTY1MzU2NTQ3MCwiZXhwIjoxNjU0MTcwMjcwfQ.q7HHX6fhdBs-Kbimtak3QkjIX93viXbUVIucqVBwPj8",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGY4NTU5YmY4OWRkZjJkYTRjZTU4NiIsImlhdCI6MTY1NDM5OTgzNiwiZXhwIjoxNjU1MDA0NjM2fQ.Z5E8Ys5VOny-GMzlNNLvR6Bf3GDqpFG6_4MQ6RDg6dU",
 								"type": "text"
 							}
 						],
@@ -98,7 +98,13 @@
 					"name": "刪除全部貼文",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGY4NTU5YmY4OWRkZjJkYTRjZTU4NiIsImlhdCI6MTY1NDM5OTgzNiwiZXhwIjoxNjU1MDA0NjM2fQ.Z5E8Ys5VOny-GMzlNNLvR6Bf3GDqpFG6_4MQ6RDg6dU",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "formdata",
 							"formdata": []
@@ -122,9 +128,15 @@
 					"name": "刪除單筆貼文",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGY4NTU5YmY4OWRkZjJkYTRjZTU4NiIsImlhdCI6MTY1NDM5OTgzNiwiZXhwIjoxNjU1MDA0NjM2fQ.Z5E8Ys5VOny-GMzlNNLvR6Bf3GDqpFG6_4MQ6RDg6dU",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "https://secure-plains-31314.herokuapp.com/post/629028acdd041b937e63af83",
+							"raw": "https://secure-plains-31314.herokuapp.com/post/629c249bf3c371c65d5cdfc4",
 							"protocol": "https",
 							"host": [
 								"secure-plains-31314",
@@ -133,7 +145,7 @@
 							],
 							"path": [
 								"post",
-								"629028acdd041b937e63af83"
+								"629c249bf3c371c65d5cdfc4"
 							]
 						}
 					},
@@ -143,7 +155,13 @@
 					"name": "編輯單筆貼文",
 					"request": {
 						"method": "PATCH",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGY4NTU5YmY4OWRkZjJkYTRjZTU4NiIsImlhdCI6MTY1NDM5OTgzNiwiZXhwIjoxNjU1MDA0NjM2fQ.Z5E8Ys5VOny-GMzlNNLvR6Bf3GDqpFG6_4MQ6RDg6dU",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"content\": \"這個人練得好壯\",\r\n    \"likes\": 144\r\n}",
@@ -154,7 +172,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://secure-plains-31314.herokuapp.com/post/62902818dd041b937e63af73",
+							"raw": "https://secure-plains-31314.herokuapp.com/post/629c249bf3c371c65d5cdfc4",
 							"protocol": "https",
 							"host": [
 								"secure-plains-31314",
@@ -163,7 +181,7 @@
 							],
 							"path": [
 								"post",
-								"62902818dd041b937e63af73"
+								"629c249bf3c371c65d5cdfc4"
 							]
 						}
 					},
@@ -178,13 +196,7 @@
 					"name": "註冊",
 					"request": {
 						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGQ5NTk5MjY2NzM0YTMzMGM4ZjcxNiIsImlhdCI6MTY1MzU2NTQ3MCwiZXhwIjoxNjU0MTcwMjcwfQ.q7HHX6fhdBs-Kbimtak3QkjIX93viXbUVIucqVBwPj8",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"name\": \"小風\",\r\n    \"email\": \"aaa1112@gmail.com\",\r\n    \"password\": \"aaAA1234\",\r\n    \"confirmPassword\": \"aaAA1234\"\r\n}",
@@ -247,7 +259,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGQ5NTk5MjY2NzM0YTMzMGM4ZjcxNiIsImlhdCI6MTY1MzU2NTQ3MCwiZXhwIjoxNjU0MTcwMjcwfQ.q7HHX6fhdBs-Kbimtak3QkjIX93viXbUVIucqVBwPj8",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGY4NTU5YmY4OWRkZjJkYTRjZTU4NiIsImlhdCI6MTY1NDM5OTgzNiwiZXhwIjoxNjU1MDA0NjM2fQ.Z5E8Ys5VOny-GMzlNNLvR6Bf3GDqpFG6_4MQ6RDg6dU",
 								"type": "text"
 							}
 						],
@@ -283,7 +295,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGQ5NTk5MjY2NzM0YTMzMGM4ZjcxNiIsImlhdCI6MTY1MzU2NTQ3MCwiZXhwIjoxNjU0MTcwMjcwfQ.q7HHX6fhdBs-Kbimtak3QkjIX93viXbUVIucqVBwPj8",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGY4NTU5YmY4OWRkZjJkYTRjZTU4NiIsImlhdCI6MTY1NDM5OTgzNiwiZXhwIjoxNjU1MDA0NjM2fQ.Z5E8Ys5VOny-GMzlNNLvR6Bf3GDqpFG6_4MQ6RDg6dU",
 								"type": "text"
 							}
 						],
@@ -310,7 +322,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGQ5NTk5MjY2NzM0YTMzMGM4ZjcxNiIsImlhdCI6MTY1MzU2NTQ3MCwiZXhwIjoxNjU0MTcwMjcwfQ.q7HHX6fhdBs-Kbimtak3QkjIX93viXbUVIucqVBwPj8",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyOGY4NTU5YmY4OWRkZjJkYTRjZTU4NiIsImlhdCI6MTY1NDM5OTgzNiwiZXhwIjoxNjU1MDA0NjM2fQ.Z5E8Ys5VOny-GMzlNNLvR6Bf3GDqpFG6_4MQ6RDg6dU",
 								"type": "text"
 							}
 						],
