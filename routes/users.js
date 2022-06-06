@@ -9,6 +9,8 @@ router.post('/user/register', UsersControllers.register);
 router.post('/user/login', UsersControllers.login);
 // 取得個人資訊
 router.get('/user/profile', checkAuth, UsersControllers.getOwnProfile);
+// 取得特定使用者資訊
+router.get('/user/profile/:id', checkAuth, UsersControllers.getUserProfile);
 // 修改個人資訊
 router.patch('/user/profile', checkAuth, UsersControllers.updateProfile);
 // 修改密碼
