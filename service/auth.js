@@ -39,7 +39,8 @@ const generateSendJWT = (user, statusCode, res) => {
     user: {
       token,
       name: user.name,
-      photo: user.photo
+      photo: user.photo,
+      _id: user._id
     },
   });
 };
