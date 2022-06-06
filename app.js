@@ -28,10 +28,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-// 調整 RESTful api
-app.use('/', usersRouter);
-app.use('/', postRouter);
-app.use('/', filesRouter);
+// 調整 RESTful api，並加入版本號
+app.use('/api/v1', usersRouter);
+app.use('/api/v1', postRouter);
+app.use('/api/v1', filesRouter);
 app.use('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerFile));
 
 // 404 錯誤
