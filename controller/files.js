@@ -20,7 +20,7 @@ const files = {
     if (name) {
       const dimensions = sizeOf(req.file.buffer);
       if(dimensions.width !== dimensions.height) {
-        return next(appError(400,"圖片長寬不符合 1:1 尺寸。",next))
+        return appError(400, "圖片長寬不符合 1:1 尺寸。", next);
       }
     }
       const imageFile = req.file;
