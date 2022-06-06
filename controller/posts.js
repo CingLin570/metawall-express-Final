@@ -3,6 +3,7 @@ const Comment = require('../models/commentsModel');
 const { successHandle } = require('../service/responseHandler');
 const appError = require('../service/appError');
 const handleErrorAsync = require('../service/handleErrorAsync');
+const checkMongoObjectId = require('../service/checkMongoObjectId');
 
 const posts = {
   getPosts: handleErrorAsync(async (req, res, next) => {
@@ -21,8 +22,11 @@ const posts = {
     successHandle(res, post);
   }),
   getSinglePost: handleErrorAsync(async (req, res, next) => {
-    const id = req.params.id;
-    const post = await Post.findById(id)
+    const postId = req.params.id;
+    if(!checkMongoObjectId(postId)) {
+      return appError(400, '取得失敗，請輸入正確的ID格式', next);
+    }
+    const post = await Post.findById(postId)
     .populate({
       path: 'user', // 關聯到user model
       select: 'name photo ', // 只取出關聯user的特定欄位
@@ -37,13 +41,16 @@ const posts = {
     successHandle(res, post);
   }),
   getOwnPosts: handleErrorAsync(async (req, res, next) => {
-    const user = req.params.id;
+    const userId = req.params.id;
     const timeSort = req.query.timeSort == 'asc' ? 'createdAt' : '-createdAt';
     const q =
       req.query.q !== undefined ? { content: new RegExp(req.query.q) } : {};
       const data = {
-        user,
+        user: userId,
         q
+      }
+      if(!checkMongoObjectId(userId)) {
+        return appError(400, '取得失敗，請輸入正確的ID格式', next);
       }
     const posts = await Post.find(data).populate({
       path: 'user',
@@ -56,30 +63,31 @@ const posts = {
     successHandle(res, posts);
   }),
   createPost: handleErrorAsync(async (req, res, next) => {
-    const user = req.user.id;
+    const userId = req.user.id;
     const { content, image } = req.body;
-      if (content) {
-        const newPost = await Post.create({
-          content,
-          user,
-          image,
-        });
-        successHandle(res, newPost);
-      } else {
-        appError(400, '新增失敗，內容必須填寫', next);
+      if (!content) {
+        return appError(400, '新增失敗，內容必須填寫', next);
       }
+      const newPost = await Post.create({
+        content,
+        user: userId,
+        image,
+      });
+      successHandle(res, newPost);
   }),
   deleteAllPosts: handleErrorAsync(async (req, res, next) => {
-    if (req.originalUrl !== '/posts/') {
-      const post = await Post.deleteMany({});
-      successHandle(res, post);
-    } else {
-      appError(404, '刪除失敗，無此網站路由', next);
+    if (req.originalUrl === '/posts/') {
+      return appError(404, '刪除失敗，無此網站路由', next);
     }
+    const post = await Post.deleteMany({});
+    successHandle(res, post);
   }),
   deleteOnePost: handleErrorAsync(async (req, res, next) => {
-    const id = req.params.id;
-    const post = await Post.findByIdAndDelete(id);
+    const postId = req.params.id;
+    if(!checkMongoObjectId(postId)) {
+      return appError(400, '取得失敗，請輸入正確的ID格式', next);
+    }
+    const post = await Post.findByIdAndDelete(postId);
     // 查不到貼文id
     if (!post) {
       return appError(400, '刪除失敗，無此貼文ID', next);
@@ -87,36 +95,42 @@ const posts = {
     successHandle(res, post);
   }),
   updatePost: handleErrorAsync(async (req, res, next) => {
-    const id = req.params.id;
+    const postId = req.params.id;
     const { content, image } = req.body;
-    if (content) {
-      const post = await Post.findByIdAndUpdate(
-        id,
-        {
-          $set: {
-            content,
-            image,
-          },
-        },
-        { 
-          new: true,
-          runValidators: true,
-        }
-      );
-      // 查不到貼文id
-      if (!post) {
-        return appError(400, '更新失敗，無此貼文ID或格式填寫錯誤', next);
-      }
-      successHandle(res, post);
-    } else {
-      appError(400, '更新失敗，未輸入必填貼文內容', next);
+    if(!checkMongoObjectId(postId)) {
+      return appError(400, '更新失敗，請輸入正確的ID格式', next);
     }
+    if (!content) {
+      return appError(400, '更新失敗，未輸入必填貼文內容', next);
+    } 
+    const post = await Post.findByIdAndUpdate(
+      postId,
+      {
+        $set: {
+          content,
+          image,
+        },
+      },
+      { 
+        new: true,
+        runValidators: true,
+      }
+    );
+    // 查不到貼文id
+    if (!post) {
+      return appError(400, '更新失敗，無此貼文ID或格式填寫錯誤', next);
+    }
+    successHandle(res, post);
   }),
   createLike: handleErrorAsync(async (req, res, next) => {
-    const id = req.params.id;
+    const userId = req.user.id;
+    const postId = req.params.id;
+    if(!checkMongoObjectId(postId)) {
+      return appError(400, '新增失敗，請輸入正確的ID格式', next);
+    }
     const post = await Post.findByIdAndUpdate(
-        id,
-        { $addToSet: { likes: req.user.id } },
+      postId,
+        { $addToSet: { likes: userId } },
         { new: true }
       );
     // 查不到貼文id
@@ -126,10 +140,14 @@ const posts = {
     successHandle(res, post);
   }),
   deleteLike: handleErrorAsync(async (req, res, next) => {
-    const id = req.params.id;
+    const postId = req.params.id;
+    const userId = req.user.id;
+    if(!checkMongoObjectId(postId)) {
+      return appError(400, '刪除失敗，請輸入正確的ID格式', next);
+    }
     const post = await Post.findByIdAndUpdate(
-        id,
-        { $pull: { likes: req.user.id } },
+      postId,
+        { $pull: { likes: userId } },
         { new: true }
       );
     // 查不到貼文id
@@ -139,19 +157,22 @@ const posts = {
     successHandle(res, post);
   }),
   createComment: handleErrorAsync(async (req, res, next) => {
-    const user = req.user.id;
-    const post = req.params.id;
+    const userId = req.user.id;
+    const postId = req.params.id;
     const {comment} = req.body;
+    if(!checkMongoObjectId(postId)) {
+      return appError(400, '新增失敗，請輸入正確的ID格式', next);
+    }
     if(!comment) {
       return appError(400, '新增失敗，未輸入必填留言內容', next);
     }
-    const findPost = await Post.findById(post);
+    const findPost = await Post.findById(postId);
     if(!findPost) {
       return appError(400, '新增失敗，查無此貼文ID', next);
     }
     const newComment = await Comment.create({
-      post,
-      user,
+      post: postId,
+      user: userId,
       comment
     });
     successHandle(res, newComment);
