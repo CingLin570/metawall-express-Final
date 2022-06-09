@@ -62,8 +62,22 @@ module.exports = router;
             name: '小明',
             photo: ''
           },
-          likes: [],
-          createdAt: '2022-05-11T01:41:18.681Z'
+          likes: ['629eb6d41a7c8d8780b1dbeb'],
+          createdAt: '2022-05-11T01:41:18.681Z',
+          comments: [
+            {
+              _id: '629f30590d49685727374cbe',
+              comment: '我昨天去過，真的好漂亮',
+              user: {
+                _id: '629eb6d41a7c8d8780b1dbeb',
+                name: '小風',
+                createdAt: '2022-06-07T02:24:20.368Z',
+                photo: ''
+              },
+              post: '629f30590d49685727374cbe',
+              createdAt: '2022-06-07T11:10:01.384Z'
+            }
+          ]
         }]
       }
     }
@@ -93,15 +107,34 @@ module.exports = router;
       description: '貼文資訊',
       schema: {
         status: 'success',
-        message: {
-        _id: '627b143e88edb2f730f97feb',
-        comment: '今天天氣真好',
-        user: '6295d56b901f7c53926520ec',
-        post: '6295d5f9901f7c53926520f8',
-        createdAt: '2022-05-11T01:41:18.681Z'
+        message: [{
+          _id: '6278da02631ef7910e7adc37',
+          content: '今天天氣真好',
+          image: '',
+          user: {
+            _id: '6277b20ad980d4df45db6447',
+            name: '小明',
+            photo: ''
+          },
+          likes: ['629eb6d41a7c8d8780b1dbeb'],
+          createdAt: '2022-05-11T01:41:18.681Z',
+          comments: [
+            {
+              _id: '629f30590d49685727374cbe',
+              comment: '我昨天去過，真的好漂亮',
+              user: {
+                _id: '629eb6d41a7c8d8780b1dbeb',
+                name: '小風',
+                createdAt: '2022-06-07T02:24:20.368Z',
+                photo: ''
+              },
+              post: '629f30590d49685727374cbe',
+              createdAt: '2022-06-07T11:10:01.384Z'
+            }
+          ]
+        }]
       }
     }
-  }
   * #swagger.end
   */
 
@@ -131,11 +164,28 @@ module.exports = router;
         _id: '627b143e88edb2f730f97feb',
         content: '今天天氣真好',
         image: 'https://i.imgur.com/ktss1mN.jpg',
-        user: '6277b20ad980d4df45db6447',
+        user: {
+          _id: '629eb6d41a7c8d8780b1dbeb',
+          name: '小風',
+          photo: ''
+        },
         likes: [
           '6295818161225bb583801a84'
         ],
-        createdAt: '2022-05-11T01:41:18.681Z'
+        createdAt: '2022-05-11T01:41:18.681Z',
+        comments: [
+          {
+            _id: '629f3209cd489902f40ab7d4',
+            comment: '我昨天去過，真的好漂亮',
+            user: {
+              _id: '629eb6d41a7c8d8780b1dbeb',
+              name: '小風',
+              createdAt: '2022-05-11T01:41:18.681Z',
+              photo: ''
+            }
+          }
+        ],
+        post: '629f30590d49685727374cbe'
       }
     }
   }
@@ -168,18 +218,14 @@ module.exports = router;
       description: '貼文資訊',
       schema: {
         status: 'success',
-        message: [{
+        message: {
           _id: '6278b537c393fa2485a7eea4',
           content: '今天天氣真好',
           image: 'https://i.imgur.com/ktss1mN.jpg',
-          user: {
-            _id: '6277b20ad980d4df45db6447',
-            name: 'Johnny',
-            photo: ''
-          },
-        likes: [],
-        createdAt: '2022-05-11T01:41:18.681Z'
-        }]
+          user: '6277b20ad980d4df45db6447',
+          likes: [],
+          createdAt: '2022-05-11T01:41:18.681Z'
+        }
       }
     }
   }
@@ -271,8 +317,7 @@ module.exports = router;
       description: '資料格式',
       schema: {
         $content: '今天天氣真好',
-        image: 'https://i.imgur.com/ktss1mN.jpg',
-        user: '6277b20ad980d4df45db6447',
+        image: 'https://i.imgur.com/ktss1mN.jpg'
       }
     }
    * #swagger.responses[200] = {

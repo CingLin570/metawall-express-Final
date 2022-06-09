@@ -48,12 +48,14 @@ module.exports = router;
       schema: {
         status: 'success',
           user: {
-            _id: '628f85asdbf89ddf2da4ce586',
+            _id: '629f425a6b8fdc057104cec2',
             email: '123@gmail.com',
             name: '小明',
-            password: '$2a$12$0/MetZwy....',
+            password: '$2a$12$a5sJTowZAHpgCST6An/vGe3NNgwxFq/9bj7u2g/vpCldXaft9XCi6',
             sex: '',
             photo: '',
+            followers: [],
+            following: [],
             createdAt: '2022-05-11T01:41:18.681Z'
           }
         }
@@ -83,6 +85,7 @@ module.exports = router;
         status: 'success',
         user: {
           token: 'eyJhbGci...',
+          _id: '629eb6d41a7c8d8780b1dbeb',
           name: '小明',
           photo: 'https://i.imgur.com/ktss1mN.jpg'
         }
@@ -111,12 +114,48 @@ module.exports = router;
           _id: '628fd55f474da4b3b4561323',
           name: '小明',
           sex: 'male',
-          photo: 'https://i.imgur.com/ktss1mN.jpg'
+          photo: 'https://i.imgur.com/ktss1mN.jpg',
+          followers: [],
+          following: []
         }
       }
     }
    * #swagger.end
  */
+
+  /**
+   * #swagger.start
+   * #swagger.path = '/user/profile/{id}'
+   * #swagger.method = 'get'
+   * #swagger.tags = ['Users - 使用者']
+   * #swagger.description = '取得特定使用者資訊 API'
+   * #swagger.parameters['Authorization'] = {
+      in: 'header',
+      type: 'string',
+      required: true,
+      description: 'Bearer token'
+    }
+   * #swagger.parameters['id'] = {
+      in: 'path',
+      type: 'string',
+      required: true,
+      description: '使用者ID'
+    }
+   * #swagger.responses[200] = {
+      description: '取得特定使用者資訊',
+      schema: {
+        status: 'success',
+        message: {
+          name: '小明',
+          photo: '',
+          followerLength: 5,
+          checkFollow: 0
+        }
+      }
+    }
+  }
+   * #swagger.end
+  */
 
   /**
    * #swagger.start
@@ -130,6 +169,17 @@ module.exports = router;
       required: true,
       description: 'Bearer token'
     }
+   * #swagger.parameters['body'] = {
+      in: 'body',
+      type: 'object',
+      required: true,
+      description: '資料格式',
+      schema: {
+        $name: '123@gmail.com',
+        $sex: 'AAbb1234',
+        photo: ''
+      }
+    }
    * #swagger.responses[200] = {
       description: '註冊資訊',
       schema: {
@@ -138,7 +188,9 @@ module.exports = router;
           _id: '628fd55f474da4b3b4561323',
           name: '小明',
           sex: 'male',
-          photo: 'https://i.imgur.com/ktss1mN.jpg'
+          photo: 'https://i.imgur.com/ktss1mN.jpg',
+          followers: [],
+          following: []
         }
       }
     }
@@ -174,7 +226,8 @@ module.exports = router;
           user: {
             token: 'eyJhbGci...',
             name: '小明',
-            photo: 'https://i.imgur.com/ktss1mN.jpg'
+            photo: 'https://i.imgur.com/ktss1mN.jpg',
+            _id: '629eb6d41a7c8d8780b1dbeb'
           }
         }
     }

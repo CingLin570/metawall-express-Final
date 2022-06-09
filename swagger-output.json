@@ -79,7 +79,7 @@
                   "properties": {
                     "_id": {
                       "type": "string",
-                      "example": "628f85asdbf89ddf2da4ce586"
+                      "example": "629f425a6b8fdc057104cec2"
                     },
                     "email": {
                       "type": "string",
@@ -91,7 +91,7 @@
                     },
                     "password": {
                       "type": "string",
-                      "example": "$2a$12$0/MetZwy...."
+                      "example": "$2a$12$a5sJTowZAHpgCST6An/vGe3NNgwxFq/9bj7u2g/vpCldXaft9XCi6"
                     },
                     "sex": {
                       "type": "string",
@@ -100,6 +100,14 @@
                     "photo": {
                       "type": "string",
                       "example": ""
+                    },
+                    "followers": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "following": {
+                      "type": "array",
+                      "items": {}
                     },
                     "createdAt": {
                       "type": "string",
@@ -165,6 +173,10 @@
                       "type": "string",
                       "example": "eyJhbGci..."
                     },
+                    "_id": {
+                      "type": "string",
+                      "example": "629eb6d41a7c8d8780b1dbeb"
+                    },
                     "name": {
                       "type": "string",
                       "example": "小明"
@@ -197,6 +209,34 @@
             "type": "string",
             "required": true,
             "description": "Bearer token"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "type": "object",
+            "required": true,
+            "description": "資料格式",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "123@gmail.com"
+                },
+                "sex": {
+                  "type": "string",
+                  "example": "AAbb1234"
+                },
+                "photo": {
+                  "type": "string",
+                  "example": ""
+                }
+              },
+              "required": [
+                "name",
+                "sex"
+              ]
+            }
           }
         ],
         "responses": {
@@ -227,6 +267,14 @@
                     "photo": {
                       "type": "string",
                       "example": "https://i.imgur.com/ktss1mN.jpg"
+                    },
+                    "followers": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "following": {
+                      "type": "array",
+                      "items": {}
                     }
                   }
                 }
@@ -280,6 +328,14 @@
                     "photo": {
                       "type": "string",
                       "example": "https://i.imgur.com/ktss1mN.jpg"
+                    },
+                    "followers": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "following": {
+                      "type": "array",
+                      "items": {}
                     }
                   }
                 }
@@ -294,10 +350,64 @@
     },
     "/api/v1/user/profile/{id}": {
       "get": {
-        "tags": [],
-        "description": "",
-        "parameters": [],
-        "responses": {}
+        "tags": [
+          "Users - 使用者"
+        ],
+        "description": "取得特定使用者資訊 API",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "使用者ID"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string",
+            "required": true,
+            "description": "Bearer token"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "取得特定使用者資訊",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "message": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "小明"
+                    },
+                    "photo": {
+                      "type": "string",
+                      "example": ""
+                    },
+                    "followerLength": {
+                      "type": "number",
+                      "example": 5
+                    },
+                    "checkFollow": {
+                      "type": "number",
+                      "example": 0
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
       }
     },
     "/api/v1/user/updatePassword": {
@@ -363,6 +473,10 @@
                     "photo": {
                       "type": "string",
                       "example": "https://i.imgur.com/ktss1mN.jpg"
+                    },
+                    "_id": {
+                      "type": "string",
+                      "example": "629eb6d41a7c8d8780b1dbeb"
                     }
                   }
                 }
@@ -762,11 +876,58 @@
                       },
                       "likes": {
                         "type": "array",
-                        "items": {}
+                        "items": {
+                          "type": "string"
+                        }
                       },
                       "createdAt": {
                         "type": "string",
                         "example": "2022-05-11T01:41:18.681Z"
+                      },
+                      "comments": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "example": "629f30590d49685727374cbe"
+                            },
+                            "comment": {
+                              "type": "string",
+                              "example": "我昨天去過，真的好漂亮"
+                            },
+                            "user": {
+                              "type": "object",
+                              "properties": {
+                                "_id": {
+                                  "type": "string",
+                                  "example": "629eb6d41a7c8d8780b1dbeb"
+                                },
+                                "name": {
+                                  "type": "string",
+                                  "example": "小風"
+                                },
+                                "createdAt": {
+                                  "type": "string",
+                                  "example": "2022-06-07T02:24:20.368Z"
+                                },
+                                "photo": {
+                                  "type": "string",
+                                  "example": ""
+                                }
+                              }
+                            },
+                            "post": {
+                              "type": "string",
+                              "example": "629f30590d49685727374cbe"
+                            },
+                            "createdAt": {
+                              "type": "string",
+                              "example": "2022-06-07T11:10:01.384Z"
+                            }
+                          }
+                        }
                       }
                     }
                   }
@@ -817,10 +978,6 @@
                 "image": {
                   "type": "string",
                   "example": "https://i.imgur.com/ktss1mN.jpg"
-                },
-                "user": {
-                  "type": "string",
-                  "example": "6277b20ad980d4df45db6447"
                 }
               },
               "required": [
@@ -908,27 +1065,94 @@
                   "example": "success"
                 },
                 "message": {
-                  "type": "object",
-                  "properties": {
-                    "_id": {
-                      "type": "string",
-                      "example": "627b143e88edb2f730f97feb"
-                    },
-                    "comment": {
-                      "type": "string",
-                      "example": "今天天氣真好"
-                    },
-                    "user": {
-                      "type": "string",
-                      "example": "6295d56b901f7c53926520ec"
-                    },
-                    "post": {
-                      "type": "string",
-                      "example": "6295d5f9901f7c53926520f8"
-                    },
-                    "createdAt": {
-                      "type": "string",
-                      "example": "2022-05-11T01:41:18.681Z"
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string",
+                        "example": "6278da02631ef7910e7adc37"
+                      },
+                      "content": {
+                        "type": "string",
+                        "example": "今天天氣真好"
+                      },
+                      "image": {
+                        "type": "string",
+                        "example": ""
+                      },
+                      "user": {
+                        "type": "object",
+                        "properties": {
+                          "_id": {
+                            "type": "string",
+                            "example": "6277b20ad980d4df45db6447"
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "小明"
+                          },
+                          "photo": {
+                            "type": "string",
+                            "example": ""
+                          }
+                        }
+                      },
+                      "likes": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "example": "2022-05-11T01:41:18.681Z"
+                      },
+                      "comments": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "example": "629f30590d49685727374cbe"
+                            },
+                            "comment": {
+                              "type": "string",
+                              "example": "我昨天去過，真的好漂亮"
+                            },
+                            "user": {
+                              "type": "object",
+                              "properties": {
+                                "_id": {
+                                  "type": "string",
+                                  "example": "629eb6d41a7c8d8780b1dbeb"
+                                },
+                                "name": {
+                                  "type": "string",
+                                  "example": "小風"
+                                },
+                                "createdAt": {
+                                  "type": "string",
+                                  "example": "2022-06-07T02:24:20.368Z"
+                                },
+                                "photo": {
+                                  "type": "string",
+                                  "example": ""
+                                }
+                              }
+                            },
+                            "post": {
+                              "type": "string",
+                              "example": "629f30590d49685727374cbe"
+                            },
+                            "createdAt": {
+                              "type": "string",
+                              "example": "2022-06-07T11:10:01.384Z"
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 }
@@ -1057,8 +1281,21 @@
                       "example": "https://i.imgur.com/ktss1mN.jpg"
                     },
                     "user": {
-                      "type": "string",
-                      "example": "6277b20ad980d4df45db6447"
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "629eb6d41a7c8d8780b1dbeb"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "小風"
+                        },
+                        "photo": {
+                          "type": "string",
+                          "example": ""
+                        }
+                      }
                     },
                     "likes": {
                       "type": "array",
@@ -1069,6 +1306,47 @@
                     "createdAt": {
                       "type": "string",
                       "example": "2022-05-11T01:41:18.681Z"
+                    },
+                    "comments": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "_id": {
+                            "type": "string",
+                            "example": "629f3209cd489902f40ab7d4"
+                          },
+                          "comment": {
+                            "type": "string",
+                            "example": "我昨天去過，真的好漂亮"
+                          },
+                          "user": {
+                            "type": "object",
+                            "properties": {
+                              "_id": {
+                                "type": "string",
+                                "example": "629eb6d41a7c8d8780b1dbeb"
+                              },
+                              "name": {
+                                "type": "string",
+                                "example": "小風"
+                              },
+                              "createdAt": {
+                                "type": "string",
+                                "example": "2022-05-11T01:41:18.681Z"
+                              },
+                              "photo": {
+                                "type": "string",
+                                "example": ""
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "post": {
+                      "type": "string",
+                      "example": "629f30590d49685727374cbe"
                     }
                   }
                 }
@@ -1130,47 +1408,31 @@
                   "example": "success"
                 },
                 "message": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "_id": {
-                        "type": "string",
-                        "example": "6278b537c393fa2485a7eea4"
-                      },
-                      "content": {
-                        "type": "string",
-                        "example": "今天天氣真好"
-                      },
-                      "image": {
-                        "type": "string",
-                        "example": "https://i.imgur.com/ktss1mN.jpg"
-                      },
-                      "user": {
-                        "type": "object",
-                        "properties": {
-                          "_id": {
-                            "type": "string",
-                            "example": "6277b20ad980d4df45db6447"
-                          },
-                          "name": {
-                            "type": "string",
-                            "example": "Johnny"
-                          },
-                          "photo": {
-                            "type": "string",
-                            "example": ""
-                          }
-                        }
-                      },
-                      "likes": {
-                        "type": "array",
-                        "items": {}
-                      },
-                      "createdAt": {
-                        "type": "string",
-                        "example": "2022-05-11T01:41:18.681Z"
-                      }
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "example": "6278b537c393fa2485a7eea4"
+                    },
+                    "content": {
+                      "type": "string",
+                      "example": "今天天氣真好"
+                    },
+                    "image": {
+                      "type": "string",
+                      "example": "https://i.imgur.com/ktss1mN.jpg"
+                    },
+                    "user": {
+                      "type": "string",
+                      "example": "6277b20ad980d4df45db6447"
+                    },
+                    "likes": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2022-05-11T01:41:18.681Z"
                     }
                   }
                 }
@@ -1504,6 +1766,10 @@
             "_id"
           ]
         },
+        "comments": {
+          "type": "string",
+          "example": "629f3f0c7d5fff79fe6a0bb4"
+        },
         "createdAt": {
           "type": "string",
           "example": "2022-05-03T09:00:00.226Z"
@@ -1536,6 +1802,18 @@
           "type": "string",
           "example": "12345678"
         },
+        "followers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "following": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "createdAt": {
           "type": "string",
           "example": "2022-05-03T09:00:00.226Z"
@@ -1545,6 +1823,32 @@
         "name",
         "email",
         "password"
+      ]
+    },
+    "Comments": {
+      "type": "object",
+      "properties": {
+        "comment": {
+          "type": "string",
+          "example": "今天天氣真好"
+        },
+        "createdAt": {
+          "type": "string",
+          "example": "2022-05-03T09:00:00.226Z"
+        },
+        "user": {
+          "type": "string",
+          "example": "629f425a6b8fdc057104cec2"
+        },
+        "post": {
+          "type": "string",
+          "example": "629eb6d41a7c8d8780b1dbeb"
+        }
+      },
+      "required": [
+        "comment",
+        "user",
+        "post"
       ]
     }
   }

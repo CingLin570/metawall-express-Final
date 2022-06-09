@@ -25,6 +25,7 @@ const doc = {
         name: '小明',
         photo: 'https://....',
       },
+      comments: '629f3f0c7d5fff79fe6a0bb4',
       createdAt: '2022-05-03T09:00:00.226Z',
     },
     Users: {
@@ -33,8 +34,20 @@ const doc = {
       photo: 'https://...',
       sex: 'male',
       $password: '12345678',
+      followers: [
+        '6295818161225bb583801a84'
+      ],
+      following: [
+        '6295818161225bb583801a84'
+      ],
       createdAt: '2022-05-03T09:00:00.226Z',
     },
+    Comments: {
+      $comment: '今天天氣真好',
+      createdAt: '2022-05-03T09:00:00.226Z',
+      $user: '629f425a6b8fdc057104cec2',
+      $post: '629eb6d41a7c8d8780b1dbeb'
+    }
   },
 };
 
