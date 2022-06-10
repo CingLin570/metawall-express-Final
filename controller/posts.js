@@ -57,7 +57,7 @@ const posts = {
       select: 'name photo ',
     }).populate({
       path: 'comments',
-      select: 'comment user'
+      options: { sort: '-createdAt' }
     })
     .sort(timeSort);
     successHandle(res, posts);
