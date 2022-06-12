@@ -12,20 +12,22 @@ const files = {
       refreshToken: process.env.IMGUR_REFRESH_TOKEN,
     });
     // 加入名稱判斷是否為個人資訊圖片上傳
-    const { name } = req.body
-    if (!req.file) {
+    const { 
+      file,
+      name: { type }
+    } = req.body
+    if (!file) {
       return appError(400, '無選取檔案', next);
     }
-    // 判斷帶有名稱body才判斷圖片長寬
-    if (name) {
+    // 判斷帶有名稱特定值才判斷圖片寬高
+    if (type === 'avatar') {
       const dimensions = sizeOf(req.file.buffer);
       if(dimensions.width !== dimensions.height) {
         return appError(400, "圖片長寬不符合 1:1 尺寸。", next);
       }
     }
-      const imageFile = req.file;
       const response = await client.upload({
-        image: Buffer.from(imageFile.buffer).toString('base64'),
+        image: Buffer.from(file.buffer).toString('base64'),
         type: 'base64',
         album: process.env.IMGUR_ALBUM_ID
       });
