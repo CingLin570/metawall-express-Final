@@ -77,25 +77,37 @@ const posts = {
   }),
   deleteOnePost: handleErrorAsync(async (req, res, next) => {
     const postId = req.params.id;
+    const userId = req.user.id;
     if(!checkMongoObjectId(postId)) {
       return appError(400, '取得失敗，請輸入正確的ID格式', next);
     }
-    const post = await Post.findByIdAndDelete(postId);
-    // 查不到貼文id
-    if (!post) {
-      return appError(400, '刪除失敗，無此貼文ID', next);
+    const findPost = await Post.findById(postId);
+    if (!findPost) {
+      return appError(400, "刪除失敗，查無此貼文ID", next);
     }
+    if (findPost.user.toString() !== userId) {
+      return appError(401, "您沒有刪除此貼文權限", next);
+    }
+    const post = await Post.findByIdAndDelete(postId);
     successHandle(res, post);
   }),
   updatePost: handleErrorAsync(async (req, res, next) => {
     const postId = req.params.id;
+    const userId = req.user.id;
     const { content, image } = req.body;
     if(!checkMongoObjectId(postId)) {
       return appError(400, '更新失敗，請輸入正確的ID格式', next);
     }
     if (!content) {
       return appError(400, '更新失敗，未輸入必填貼文內容', next);
-    } 
+    }
+    const findPost = await Post.findById(postId);
+    if (!findPost) {
+      return appError(400, "刪除失敗，查無此貼文ID", next);
+    }
+    if (findPost.user.toString() !== userId) {
+      return appError(401, "您沒有刪除此貼文權限", next);
+    }
     const post = await Post.findByIdAndUpdate(
       postId,
       {
@@ -109,10 +121,6 @@ const posts = {
         runValidators: true,
       }
     );
-    // 查不到貼文id
-    if (!post) {
-      return appError(400, '更新失敗，無此貼文ID或格式填寫錯誤', next);
-    }
     successHandle(res, post);
   }),
   createLike: handleErrorAsync(async (req, res, next) => {
