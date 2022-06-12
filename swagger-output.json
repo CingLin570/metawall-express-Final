@@ -756,24 +756,36 @@
         }
       }
     },
-    "/api/v1/posts": {
-      "delete": {
+    "/api/v1/sendMail": {
+      "post": {
         "tags": [
-          "Posts - 貼文"
+          "Users - 使用者"
         ],
-        "description": "刪除全部貼文 API",
+        "description": "忘記密碼發送信件 API",
         "parameters": [
           {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string",
+            "name": "body",
+            "in": "body",
+            "type": "object",
             "required": true,
-            "description": "Bearer token"
+            "description": "資料格式",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "123@gmail.com"
+                }
+              },
+              "required": [
+                "email"
+              ]
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "貼文資訊",
+            "description": "註冊資訊",
             "schema": {
               "type": "object",
               "properties": {
@@ -782,17 +794,8 @@
                   "example": "success"
                 },
                 "message": {
-                  "type": "object",
-                  "properties": {
-                    "acknowledged": {
-                      "type": "boolean",
-                      "example": true
-                    },
-                    "deletedCount": {
-                      "type": "number",
-                      "example": 10
-                    }
-                  }
+                  "type": "string",
+                  "example": "發送成功"
                 }
               },
               "xml": {
@@ -801,7 +804,9 @@
             }
           }
         }
-      },
+      }
+    },
+    "/api/v1/posts": {
       "get": {
         "tags": [
           "Posts - 貼文"
