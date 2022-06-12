@@ -79,14 +79,14 @@ const posts = {
     const postId = req.params.id;
     const userId = req.user.id;
     if(!checkMongoObjectId(postId)) {
-      return appError(400, '取得失敗，請輸入正確的ID格式', next);
+      return appError(400, '刪除失敗，請輸入正確的ID格式', next);
     }
     const findPost = await Post.findById(postId);
     if (!findPost) {
       return appError(400, "刪除失敗，查無此貼文ID", next);
     }
     if (findPost.user.toString() !== userId) {
-      return appError(401, "您沒有刪除此貼文權限", next);
+      return appError(401, "您非本人沒有刪除此貼文權限", next);
     }
     const post = await Post.findByIdAndDelete(postId);
     successHandle(res, post);
@@ -103,10 +103,10 @@ const posts = {
     }
     const findPost = await Post.findById(postId);
     if (!findPost) {
-      return appError(400, "刪除失敗，查無此貼文ID", next);
+      return appError(400, "更新失敗，查無此貼文ID", next);
     }
     if (findPost.user.toString() !== userId) {
-      return appError(401, "您沒有刪除此貼文權限", next);
+      return appError(401, "您非本人沒有編輯此貼文權限", next);
     }
     const post = await Post.findByIdAndUpdate(
       postId,
