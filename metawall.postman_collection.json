@@ -704,6 +704,11 @@
 									"key": "image",
 									"type": "file",
 									"src": "/C:/Users/asd28/Desktop/metawall-front/src/assets/img/user4.png"
+								},
+								{
+									"key": "type",
+									"value": "avatar",
+									"type": "text"
 								}
 							]
 						},
