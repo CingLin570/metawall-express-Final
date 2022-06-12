@@ -1,0 +1,730 @@
+{
+	"info": {
+		"_postman_id": "26533525-3d00-47e6-bdca-784bad6f54ed",
+		"name": "metawall",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14555858"
+	},
+	"item": [
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "取得篩選貼文",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYTFlYjhiOGVkODVkNzc2NTQyNGQ2OCIsImlhdCI6MTY1NTAyMzAwNywiZXhwIjoxNjYyNzk5MDA3fQ.57JSad0J1itfzai0byTuukXyiI90QnpVpRjzkswB3GY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://secure-plains-31314.herokuapp.com/api/v1/posts?timeSort=desc",
+							"protocol": "https",
+							"host": [
+								"secure-plains-31314",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"posts"
+							],
+							"query": [
+								{
+									"key": "timeSort",
+									"value": "desc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取得個人所有貼文列表",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYTFlYjhiOGVkODVkNzc2NTQyNGQ2OCIsImlhdCI6MTY1NTAyMzAwNywiZXhwIjoxNjYyNzk5MDA3fQ.57JSad0J1itfzai0byTuukXyiI90QnpVpRjzkswB3GY",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://secure-plains-31314.herokuapp.com/api/v1/post/user/62a49765c029c9e95989b7ce",
+							"protocol": "https",
+							"host": [
+								"secure-plains-31314",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"post",
+								"user",
+								"62a49765c029c9e95989b7ce"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取得單筆貼文",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYTFlYjhiOGVkODVkNzc2NTQyNGQ2OCIsImlhdCI6MTY1NTAyMzAwNywiZXhwIjoxNjYyNzk5MDA3fQ.57JSad0J1itfzai0byTuukXyiI90QnpVpRjzkswB3GY",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://secure-plains-31314.herokuapp.com/api/v1/post/62a58cc45fa1021ceab252fc",
+							"protocol": "https",
+							"host": [
+								"secure-plains-31314",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"post",
+								"62a58cc45fa1021ceab252fc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "新增單筆貼文",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYTFlYjhiOGVkODVkNzc2NTQyNGQ2OCIsImlhdCI6MTY1NTAyMzAwNywiZXhwIjoxNjYyNzk5MDA3fQ.57JSad0J1itfzai0byTuukXyiI90QnpVpRjzkswB3GY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"今天上課好無聊\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://secure-plains-31314.herokuapp.com/api/v1/post",
+							"protocol": "https",
+							"host": [
+								"secure-plains-31314",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "新增特定貼文按讚",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYTFlYjhiOGVkODVkNzc2NTQyNGQ2OCIsImlhdCI6MTY1NTAyMzAwNywiZXhwIjoxNjYyNzk5MDA3fQ.57JSad0J1itfzai0byTuukXyiI90QnpVpRjzkswB3GY",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://secure-plains-31314.herokuapp.com/api/v1/post/62a58cc45fa1021ceab252fc/likes",
+							"protocol": "https",
+							"host": [
+								"secure-plains-31314",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"post",
+								"62a58cc45fa1021ceab252fc",
+								"likes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "新增留言",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYTFlYjhiOGVkODVkNzc2NTQyNGQ2OCIsImlhdCI6MTY1NTAyMzAwNywiZXhwIjoxNjYyNzk5MDA3fQ.57JSad0J1itfzai0byTuukXyiI90QnpVpRjzkswB3GY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"comment\": \"我昨天去過，真的好漂亮\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://secure-plains-31314.herokuapp.com/api/v1/post/62a1e72da27d94a0e697edd3/comment",
+							"protocol": "https",
+							"host": [
+								"secure-plains-31314",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"post",
+								"62a1e72da27d94a0e697edd3",
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "刪除單筆貼文",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYTFlYjhiOGVkODVkNzc2NTQyNGQ2OCIsImlhdCI6MTY1NTAyMzAwNywiZXhwIjoxNjYyNzk5MDA3fQ.57JSad0J1itfzai0byTuukXyiI90QnpVpRjzkswB3GY",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://secure-plains-31314.herokuapp.com/api/v1/post/62a58cc45fa1021ceab252fc",
+							"protocol": "https",
+							"host": [
+								"secure-plains-31314",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"post",
+								"62a58cc45fa1021ceab252fc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "刪除特定貼文按讚",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYTFlYjhiOGVkODVkNzc2NTQyNGQ2OCIsImlhdCI6MTY1NTAyMzAwNywiZXhwIjoxNjYyNzk5MDA3fQ.57JSad0J1itfzai0byTuukXyiI90QnpVpRjzkswB3GY",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://secure-plains-31314.herokuapp.com/api/v1/post/62a58cc45fa1021ceab252fc/likes",
+							"protocol": "https",
+							"host": [
+								"secure-plains-31314",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"post",
+								"62a58cc45fa1021ceab252fc",
+								"likes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "編輯單筆貼文",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYTFlYjhiOGVkODVkNzc2NTQyNGQ2OCIsImlhdCI6MTY1NTAyMzAwNywiZXhwIjoxNjYyNzk5MDA3fQ.57JSad0J1itfzai0byTuukXyiI90QnpVpRjzkswB3GY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"這個人練得好壯\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://secure-plains-31314.herokuapp.com/api/v1/post/62a58cc45fa1021ceab252fc",
+							"protocol": "https",
+							"host": [
+								"secure-plains-31314",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"post",
+								"62a58cc45fa1021ceab252fc"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "註冊",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"湯米\",\r\n    \"email\": \"tony@gmail.com\",\r\n    \"password\": \"aaAA1234\",\r\n    \"confirmPassword\": \"aaAA1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://secure-plains-31314.herokuapp.com/api/v1/user/register",
+							"protocol": "https",
+							"host": [
+								"secure-plains-31314",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "登入",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"johnny@gmail.com\",\r\n    \"password\": \"AAbb1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://secure-plains-31314.herokuapp.com/api/v1/user/login",
+							"protocol": "https",
+							"host": [
+								"secure-plains-31314",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "修改個人資訊",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYTFlYjhiOGVkODVkNzc2NTQyNGQ2OCIsImlhdCI6MTY1NTAyMzAwNywiZXhwIjoxNjYyNzk5MDA3fQ.57JSad0J1itfzai0byTuukXyiI90QnpVpRjzkswB3GY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"name\": \"強尼\",\r\n        \"sex\": \"male\",\r\n        \"photo\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://secure-plains-31314.herokuapp.com/api/v1/user/profile",
+							"protocol": "https",
+							"host": [
+								"secure-plains-31314",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取得個人資訊",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYTFlYjhiOGVkODVkNzc2NTQyNGQ2OCIsImlhdCI6MTY1NTAyMzAwNywiZXhwIjoxNjYyNzk5MDA3fQ.57JSad0J1itfzai0byTuukXyiI90QnpVpRjzkswB3GY",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://secure-plains-31314.herokuapp.com/api/v1/user/profile",
+							"protocol": "https",
+							"host": [
+								"secure-plains-31314",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "重設密碼",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYTFlYjhiOGVkODVkNzc2NTQyNGQ2OCIsImlhdCI6MTY1NTAyMzAwNywiZXhwIjoxNjYyNzk5MDA3fQ.57JSad0J1itfzai0byTuukXyiI90QnpVpRjzkswB3GY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"AAbb1234\",\r\n    \"confirmPassword\": \"AAbb1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://secure-plains-31314.herokuapp.com/api/v1/user/updatePassword",
+							"protocol": "https",
+							"host": [
+								"secure-plains-31314",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"updatePassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取得按讚列表",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYTFlYjhiOGVkODVkNzc2NTQyNGQ2OCIsImlhdCI6MTY1NTAyMzAwNywiZXhwIjoxNjYyNzk5MDA3fQ.57JSad0J1itfzai0byTuukXyiI90QnpVpRjzkswB3GY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://secure-plains-31314.herokuapp.com/api/v1/user/getLikeList",
+							"protocol": "https",
+							"host": [
+								"secure-plains-31314",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"getLikeList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "追蹤使用者",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYTFlYjhiOGVkODVkNzc2NTQyNGQ2OCIsImlhdCI6MTY1NTAyMzAwNywiZXhwIjoxNjYyNzk5MDA3fQ.57JSad0J1itfzai0byTuukXyiI90QnpVpRjzkswB3GY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "https://secure-plains-31314.herokuapp.com/api/v1/user/62a49113c029c9e95989b7b3/follow",
+							"protocol": "https",
+							"host": [
+								"secure-plains-31314",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"62a49113c029c9e95989b7b3",
+								"follow"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取消追蹤使用者",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYTFlYjhiOGVkODVkNzc2NTQyNGQ2OCIsImlhdCI6MTY1NTAyMzAwNywiZXhwIjoxNjYyNzk5MDA3fQ.57JSad0J1itfzai0byTuukXyiI90QnpVpRjzkswB3GY",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://secure-plains-31314.herokuapp.com/api/v1/user/62a49113c029c9e95989b7b3/follow",
+							"protocol": "https",
+							"host": [
+								"secure-plains-31314",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"62a49113c029c9e95989b7b3",
+								"follow"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取得追蹤使用者",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYTFlYjhiOGVkODVkNzc2NTQyNGQ2OCIsImlhdCI6MTY1NTAyMzAwNywiZXhwIjoxNjYyNzk5MDA3fQ.57JSad0J1itfzai0byTuukXyiI90QnpVpRjzkswB3GY",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://secure-plains-31314.herokuapp.com/api/v1/user/following",
+							"protocol": "https",
+							"host": [
+								"secure-plains-31314",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"following"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取得特定使用者資訊",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYTFlYjhiOGVkODVkNzc2NTQyNGQ2OCIsImlhdCI6MTY1NTAyMzAwNywiZXhwIjoxNjYyNzk5MDA3fQ.57JSad0J1itfzai0byTuukXyiI90QnpVpRjzkswB3GY",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://secure-plains-31314.herokuapp.com/api/v1/user/profile/62a49113c029c9e95989b7b3",
+							"protocol": "https",
+							"host": [
+								"secure-plains-31314",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"profile",
+								"62a49113c029c9e95989b7b3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "忘記密碼發送信件",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"asd28618371@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://secure-plains-31314.herokuapp.com/api/v1/sendMail",
+							"protocol": "https",
+							"host": [
+								"secure-plains-31314",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"sendMail"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Files",
+			"item": [
+				{
+					"name": "檔案上傳",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYTFlYjhiOGVkODVkNzc2NTQyNGQ2OCIsImlhdCI6MTY1NTAyMzAwNywiZXhwIjoxNjYyNzk5MDA3fQ.57JSad0J1itfzai0byTuukXyiI90QnpVpRjzkswB3GY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/asd28/Desktop/metawall-front/src/assets/img/user4.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://secure-plains-31314.herokuapp.com/api/v1/file",
+							"protocol": "https",
+							"host": [
+								"secure-plains-31314",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"file"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
