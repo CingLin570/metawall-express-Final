@@ -7,6 +7,7 @@ const { successHandle } = require('../service/responseHandler');
 const appError = require('../service/appError');
 const handleErrorAsync = require('../service/handleErrorAsync');
 const checkMongoObjectId = require('../service/checkMongoObjectId');
+const sendmail = require('../service/sendMail');
 
 const users = {
   register: handleErrorAsync(async (req, res, next) => {
@@ -49,7 +50,7 @@ const users = {
     // 查詢是否存在信箱
     const findUserByMail = await User.findOne({ email });
     if (findUserByMail) {
-      return appError(400, 'email 已註冊', next);
+      return appError(400, 'Email 已註冊', next);
     }
     // 加密密碼
     password = await bcrypt.hash(req.body.password, 12);
@@ -270,6 +271,40 @@ const users = {
       options: { sort: '-createdAt' }
     });
     successHandle(res, findUser);
+  }),
+  forgetPassword: handleErrorAsync(async (req, res, next) => {
+    const { email } = req.body;
+    // 內容不可為空
+    if (!email) {
+      return appError(400, 'Email欄位未填寫正確！', next);
+    }
+    // 是否為 Email
+    if (!validator.isEmail(email)) {
+      return appError(400, 'Email 格式不正確', next);
+    }
+    // 查詢是否存在信箱
+    const findUserByMail = await User.findOne({ email }).select('+password');
+    if (!findUserByMail) {
+      return appError(400, 'Email 尚未註冊', next);
+    }
+    const { name } = findUserByMail;
+    newPassword =  Math.random().toString(36).substr(2, 12) + Math.random().toString(36).toUpperCase();
+    password = await bcrypt.hash(newPassword, 12);
+    const user = {
+      password: newPassword,
+      email,
+      name
+    }
+    await User.findOneAndUpdate({ email }, {
+      $set: {
+        password
+      },
+    },
+    {
+      new: true,
+      runValidators: true,
+    })
+    sendmail(user, req, res, next );
   })
 };
 

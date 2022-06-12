@@ -23,6 +23,8 @@ router.post('/user/:id/follow', checkAuth, UsersControllers.createFollow);
 router.delete('/user/:id/follow', checkAuth, UsersControllers.deleteFollow);
 // 取得追蹤使用者
 router.get('/user/following', checkAuth, UsersControllers.getFollowing);
+// 忘記密碼發送信件
+router.post('/sendMail', UsersControllers.forgetPassword);
 
 module.exports = router;
   /**
@@ -365,3 +367,28 @@ module.exports = router;
   }
    * #swagger.end
   */
+
+    /**
+   * #swagger.start
+   * #swagger.path = '/sendMail'
+   * #swagger.method = 'post'
+   * #swagger.tags = ['Users - 使用者']
+   * #swagger.description = '忘記密碼發送信件 API'
+   * #swagger.parameters['body'] = {
+      in: 'body',
+      type: 'object',
+      required: true,
+      description: '資料格式',
+      schema: {
+        $email: '123@gmail.com',
+      }
+    }
+   * #swagger.responses[200] = {
+      description: '註冊資訊',
+      schema: {
+        status: 'success',
+        message: '發送成功' 
+      }
+    }
+   * #swagger.end
+ */
