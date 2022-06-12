@@ -75,13 +75,6 @@ const posts = {
       });
       successHandle(res, newPost);
   }),
-  deleteAllPosts: handleErrorAsync(async (req, res, next) => {
-    if (req.originalUrl === '/posts/') {
-      return appError(404, '刪除失敗，無此網站路由', next);
-    }
-    const post = await Post.deleteMany({});
-    successHandle(res, post);
-  }),
   deleteOnePost: handleErrorAsync(async (req, res, next) => {
     const postId = req.params.id;
     if(!checkMongoObjectId(postId)) {

@@ -11,8 +11,6 @@ router.get('/post/:id', checkAuth, PostsControllers.getSinglePost);
 router.get('/post/user/:id', checkAuth, PostsControllers.getOwnPosts);
 // 新增單筆貼文
 router.post('/post', checkAuth, PostsControllers.createPost);
-// 刪除全部貼文
-router.delete('/posts', checkAuth, PostsControllers.deleteAllPosts);
 // 刪除單筆貼文
 router.delete('/post/:id', checkAuth, PostsControllers.deleteOnePost);
 // 修改單筆貼文
@@ -229,31 +227,6 @@ module.exports = router;
       }
     }
   }
-  * #swagger.end
-  */
-
-  /**
-   * #swagger.start
-   * #swagger.path = '/posts'
-   * #swagger.method = 'delete'
-   * #swagger.tags = ['Posts - 貼文']
-   * #swagger.description = '刪除全部貼文 API'
-   * #swagger.parameters['Authorization'] = {
-      in: 'header',
-      type: 'string',
-      required: true,
-      description: 'Bearer token'
-    }
-   * #swagger.responses[200] = {
-      description: '貼文資訊',
-      schema: {
-        status: 'success',
-        message: {
-          acknowledged: true,
-          deletedCount: 10
-        }
-      }
-    }
   * #swagger.end
   */
 
