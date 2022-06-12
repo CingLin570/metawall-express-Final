@@ -14,14 +14,14 @@ const files = {
     // 加入名稱判斷是否為個人資訊圖片上傳
     const { 
       file,
-      name: { type }
-    } = req.body
+      body: { type }
+    } = req
     if (!file) {
       return appError(400, '無選取檔案', next);
     }
     // 判斷帶有名稱特定值才判斷圖片寬高
     if (type === 'avatar') {
-      const dimensions = sizeOf(req.file.buffer);
+      const dimensions = sizeOf(file.buffer);
       if(dimensions.width !== dimensions.height) {
         return appError(400, "圖片長寬不符合 1:1 尺寸。", next);
       }
