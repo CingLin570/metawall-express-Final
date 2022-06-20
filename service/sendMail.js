@@ -1,9 +1,8 @@
 const nodemailer = require("nodemailer");
 const appError = require('../service/appError');
 const { successHandle } = require('../service/responseHandler');
-const handleErrorAsync = require('../service/handleErrorAsync');
 
-const sendMail = handleErrorAsync(async (user, req, res, next) => {
+const sendMail = (user, verification, res, next) => {
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 465,
@@ -16,6 +15,7 @@ const sendMail = handleErrorAsync(async (user, req, res, next) => {
         refreshToken: process.env.REFRESHTOKEN
       }
     });
+    console.log(user.email)
     transporter.sendMail({
       from: process.env.ACCOUNT,
       to: user.email,
@@ -36,8 +36,8 @@ const sendMail = handleErrorAsync(async (user, req, res, next) => {
                   <td align="left" style="padding:20px">
                     <div>
                       <p>${user.name}，您好</p>
-                      <p>以下為您的新密碼，請使用重新登入後更改新密碼</p>
-                      ${user.password}
+                      <p>以下為您的驗證碼，請使用重新登入後更改新密碼</p>
+                      <p style="text-align:center; font-size: 24px">${verification}</p>
                       <div style="text-align:center;margin-bottom:20px;">
                     </div>
                       <p style="font-size:12px;"><strong style="color:#03438d;">本郵件請勿直接回覆。</p>
@@ -55,6 +55,6 @@ const sendMail = handleErrorAsync(async (user, req, res, next) => {
     }).catch((err) => {
       return appError(400, '發送失敗，請重新輸入', next);
     })
-  })
+  }
 
 module.exports = sendMail
