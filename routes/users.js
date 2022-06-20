@@ -25,6 +25,8 @@ router.delete('/user/:id/follow', checkAuth, UsersControllers.deleteFollow);
 router.get('/user/following', checkAuth, UsersControllers.getFollowing);
 // 忘記密碼發送信件
 router.post('/sendMail', UsersControllers.forgetPassword);
+// 驗證碼登入
+router.post('/verification', UsersControllers.verification);
 
 module.exports = router;
   /**
@@ -388,6 +390,37 @@ module.exports = router;
       schema: {
         status: 'success',
         message: '發送成功' 
+      }
+    }
+   * #swagger.end
+ */
+
+      /**
+   * #swagger.start
+   * #swagger.path = '/verification'
+   * #swagger.method = 'post'
+   * #swagger.tags = ['Users - 使用者']
+   * #swagger.description = '驗證碼登入 API'
+   * #swagger.parameters['body'] = {
+      in: 'body',
+      type: 'object',
+      required: true,
+      description: '資料格式',
+      schema: {
+        $email: '123@gmail.com',
+        $verification: '5555'
+      }
+    }
+   * #swagger.responses[200] = {
+      description: '登入資訊',
+      schema: {
+        status: 'success',
+        user: {
+          token: 'eyJhbGci...',
+          _id: '629eb6d41a7c8d8780b1dbeb',
+          name: '小明',
+          photo: 'https://i.imgur.com/ktss1mN.jpg'
+        }
       }
     }
    * #swagger.end
