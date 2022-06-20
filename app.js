@@ -9,11 +9,13 @@ dotenv.config({ path: './config.env' });
 const usersRouter = require('./routes/users');
 const postRouter = require('./routes/posts');
 const filesRouter = require('./routes/files');
+const authRouter = require('./routes/auth');
 const swaggerUI = require('swagger-ui-express');
 const swaggerFile = require('./swagger-output.json');
 
 const app = express();
 require('./connection');
+require('./service/passport');
 // 程式出現重大錯誤時
 process.on('uncaughtException', (err) => {
   // 記錄錯誤下來，等到服務都處理完後，停掉該 process
@@ -32,6 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/v1', usersRouter);
 app.use('/api/v1', postRouter);
 app.use('/api/v1', filesRouter);
+app.use('/auth', authRouter);
 app.use('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerFile));
 
 // 404 錯誤
