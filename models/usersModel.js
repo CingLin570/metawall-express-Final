@@ -49,7 +49,15 @@ const userSchema = new mongoose.Schema(
           default: Date.now
         }
       }
-    ]
+    ],
+    googleId: {
+      type: String,
+      default: ''
+    },
+    facebookId: {
+      type: String,
+      default: ''
+    },
   },
   {
     versionKey: false,
