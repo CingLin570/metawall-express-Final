@@ -806,6 +806,78 @@
         }
       }
     },
+    "/api/v1/verification": {
+      "post": {
+        "tags": [
+          "Users - 使用者"
+        ],
+        "description": "驗證碼登入 API",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "type": "object",
+            "required": true,
+            "description": "資料格式",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "123@gmail.com"
+                },
+                "verification": {
+                  "type": "string",
+                  "example": "5555"
+                }
+              },
+              "required": [
+                "email",
+                "verification"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "登入資訊",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "user": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "example": "eyJhbGci..."
+                    },
+                    "_id": {
+                      "type": "string",
+                      "example": "629eb6d41a7c8d8780b1dbeb"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "小明"
+                    },
+                    "photo": {
+                      "type": "string",
+                      "example": "https://i.imgur.com/ktss1mN.jpg"
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/posts": {
       "get": {
         "tags": [
@@ -1723,6 +1795,98 @@
                     }
                   }
                 }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/google": {
+      "get": {
+        "tags": [
+          "Auth - 第三方登入"
+        ],
+        "description": "第三方登入Google API",
+        "parameters": [],
+        "responses": {
+          "302": {
+            "description": "Google帳號登入授權",
+            "schema": {
+              "type": "string",
+              "導頁至 Google 登入頁面": {
+                "example": "導頁至 Google 登入頁面"
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/google/callback": {
+      "get": {
+        "tags": [
+          "Auth - 第三方登入"
+        ],
+        "description": "第三方登入Google(已授權) API",
+        "parameters": [],
+        "responses": {
+          "302": {
+            "description": "Google帳號已授權，導入前台位置",
+            "schema": {
+              "type": "string",
+              "導入前台位置": {
+                "example": "導入前台位置"
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/facebook": {
+      "get": {
+        "tags": [
+          "Auth - 第三方登入"
+        ],
+        "description": "第三方登入Facebook API",
+        "parameters": [],
+        "responses": {
+          "302": {
+            "description": "Facebook帳號登入授權",
+            "schema": {
+              "type": "string",
+              "導頁至 Facebook 登入頁面": {
+                "example": "導頁至 Facebook 登入頁面"
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/facebook/callback": {
+      "get": {
+        "tags": [
+          "Auth - 第三方登入"
+        ],
+        "description": "第三方登入Facebook(已授權) API",
+        "parameters": [],
+        "responses": {
+          "302": {
+            "description": "Facebook帳號已授權，導入前台位置",
+            "schema": {
+              "type": "string",
+              "導入前台位置": {
+                "example": "導入前台位置"
               },
               "xml": {
                 "name": "main"
