@@ -1,6 +1,5 @@
 const User = require('../models/usersModel');
 const bcrypt = require('bcryptjs'); // 密碼加密
-const appError = require('../service/appError');
 const { generateUrlJWT } = require('../service/auth');const handleErrorAsync = require('../service/handleErrorAsync');
 
 
