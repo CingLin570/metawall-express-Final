@@ -10,7 +10,7 @@ const auth = {
     const findUser = await User.findOne({ email });
     const user = await User.findOne({ email, googleId: sub });
     if(findUser && !user) {
-      return res.redirect(`http://localhost:8080/#/oauth?error=${encodeURIComponent('此使用者已註冊')}`);
+      return res.redirect(`${process.env.APP_URL}/#/oauth?error=${encodeURIComponent('此使用者已註冊')}`);
     }
     if(!user) {
       // 加密密碼
@@ -22,16 +22,16 @@ const auth = {
         email,
         photo: picture,
       });
-      return res.redirect(`http://localhost:8080/#/oauth?token=${generateUrlJWT(newUser)}`);
+      return res.redirect(`${process.env.APP_URL}/#/oauth?token=${generateUrlJWT(newUser)}`);
     }
-    res.redirect(`http://localhost:8080/#/oauth?token=${generateUrlJWT(user)}`);
+    res.redirect(`${process.env.APP_URL}/#/oauth?token=${generateUrlJWT(user)}`);
   }),
   facebookAuth: handleErrorAsync(async (req, res, next) => {
     const { name, id, email, picture } = req.user
     const findUser = await User.findOne({ email });
     const user = await User.findOne({ email, facebookId: id });
     if(findUser && !user) {
-      return res.redirect(`http://localhost:8080/#/oauth?error=${encodeURIComponent('此使用者已註冊')}`);
+      return res.redirect(`${process.env.APP_URL}/#/oauth?error=${encodeURIComponent('此使用者已註冊')}`);
     }
     if(!user) {
       // 加密密碼
@@ -43,9 +43,9 @@ const auth = {
         email,
         photo: picture.data.url,
       });
-      return res.redirect(`http://localhost:8080/#/oauth?token=${generateUrlJWT(newUser)}`);
+      return res.redirect(`${process.env.APP_URL}/#/oauth?token=${generateUrlJWT(newUser)}`);
     }
-    res.redirect(`http://localhost:8080/#/oauth?token=${generateUrlJWT(user)}`);
+    res.redirect(`${process.env.APP_URL}/#/oauth?token=${generateUrlJWT(user)}`);
   })
 }
 
