@@ -8,7 +8,7 @@ router.get('/google', passport.authenticate('google', {
 }));
 
 router.get('/google/callback', passport.authenticate('google',
-{ session: false, failureRedirect: `${process.env.APP_URL}/login`, }),
+{ session: false, failureRedirect: `${process.env.APP_URL}/#/login`, }),
 AuthControllers.googleAuth);
 
 router.get(
@@ -18,7 +18,7 @@ router.get(
 router.get(
   '/facebook/callback',
   passport.authenticate('facebook', { session: false,
-    failureRedirect: `${process.env.APP_URL}/login` }),
+    failureRedirect: `${process.env.APP_URL}/#/login` }),
     AuthControllers.facebookAuth);
 
 module.exports = router;
