@@ -21,6 +21,7 @@ const uploadFile = handleErrorAsync(async (req, res, next) => {
     } else if(err) {
       return appError(400, err, next);
     }
+    next();
   })
 })
 
